@@ -10,6 +10,8 @@ return {
 		"folke/trouble.nvim",
 		"folke/which-key.nvim",
 		{ "benfowler/telescope-luasnip.nvim", module = "telescope._extensions.luasnip" },
+		"nvim-telescope/telescope-frecency.nvim",
+		"tami5/sqlite.lua",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -20,7 +22,7 @@ return {
 		-- Custom actions
 		local custom_actions = transform_mod({
 			open_trouble_qflist = function()
-				trouble.open_with_trouble("quickfix")
+				trouble.open("quickfix")
 			end,
 		})
 
@@ -28,15 +30,18 @@ return {
 		telescope.setup({
 			defaults = {
 				vimgrep_arguments = {
-					"ag",
-					"--nogroup",
-					"--nocolor",
-					"--hidden",
-					"-g",
-					"!.git",
+					"rg",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
 				},
+				find_command = { "fd", "--type", "file", "--hidden", "--follow", "--exclude", ".git" },
 				file_ignore_patterns = {
 					"node_modules",
+					".git/",
 				},
 				path_display = { "smart" },
 				mappings = {
@@ -54,6 +59,7 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("noice")
 		telescope.load_extension("luasnip")
+		telescope.load_extension("frecency")
 
 		-- Key mappings with which-key
 		local wk = require("which-key")
@@ -66,6 +72,12 @@ return {
 				s = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
 				c = { "<cmd>Telescope grep_string<cr>", "Search under cursor" },
 				t = { "<cmd>TodoTelescope<cr>", "Find todos" },
+				e = { "<cmd>Telescope frecency<cr>", "Find frequently used files" },
+			},
+			s = {
+				name = "Search",
+				f = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
+				b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in current buffer" },
 			},
 		}, { prefix = "<leader>" })
 	end,

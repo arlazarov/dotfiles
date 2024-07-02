@@ -24,7 +24,6 @@ return {
 			dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
 			dashboard.button("f", "  > Find File", ":Telescope find_files <CR>"),
 			dashboard.button("p", "  > Projects", ":Telescope projects <CR>"),
-			dashboard.button("s", "󰁯  > Restore Session", "<cmd>SessionRestore<CR>"),
 			dashboard.button("i", "  > Settings", ":e ~/.config/nvim/lua/settings.lua <CR>"),
 			dashboard.button("m", "  > Keymaps", ":e ~/.config/nvim/lua/keymaps.lua <CR>"),
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),

@@ -3,7 +3,8 @@ local lsp = vim.lsp
 
 local function fix_all(opts)
 	opts = opts or {}
-	local eslint_lsp_client = util.get_active_client_by_name(opts.bufnr, "eslint")
+	local eslint_lsp_client =
+		util.get_active_client_by_name(opts.bufnr, "eslint")
 	if not eslint_lsp_client then
 		return
 	end
@@ -23,7 +24,10 @@ local function fix_all(opts)
 	request(0, "workspace/executeCommand", {
 		command = "eslint.applyAllFixes",
 		arguments = {
-			{ uri = vim.uri_from_bufnr(bufnr), version = lsp.util.buf_versions[bufnr] },
+			{
+				uri = vim.uri_from_bufnr(bufnr),
+				version = lsp.util.buf_versions[bufnr],
+			},
 		},
 	})
 end
@@ -59,7 +63,8 @@ return {
 			"astro",
 		},
 		root_dir = function(fname)
-			root_file = util.insert_package_json(root_file, "eslintConfig", fname)
+			root_file =
+				util.insert_package_json(root_file, "eslintConfig", fname)
 			return util.root_pattern(unpack(root_file))(fname)
 		end,
 		settings = {
@@ -101,12 +106,14 @@ return {
 
 			-- Support flat config
 			if
-				vim.fn.filereadable(new_root_dir .. "/eslint.config.js") == 1
+				vim.fn.filereadable(new_root_dir .. "/eslint.config.js")
+					== 1
 				or vim.fn.filereadable(new_root_dir .. "/eslint.config.mjs") == 1
 				or vim.fn.filereadable(new_root_dir .. "/eslint.config.cjs") == 1
 				or vim.fn.filereadable(new_root_dir .. "/eslint.config.ts") == 1
 				or vim.fn.filereadable(new_root_dir .. "/eslint.config.mts") == 1
-				or vim.fn.filereadable(new_root_dir .. "/eslint.config.cts") == 1
+				or vim.fn.filereadable(new_root_dir .. "/eslint.config.cts")
+					== 1
 			then
 				config.settings.experimental.useFlatConfig = true
 			end
@@ -140,11 +147,17 @@ return {
 				return 4 -- approved
 			end,
 			["eslint/probeFailed"] = function()
-				vim.notify("[lspconfig] ESLint probe failed.", vim.log.levels.WARN)
+				vim.notify(
+					"[lspconfig] ESLint probe failed.",
+					vim.log.levels.WARN
+				)
 				return {}
 			end,
 			["eslint/noLibrary"] = function()
-				vim.notify("[lspconfig] Unable to find ESLint library.", vim.log.levels.WARN)
+				vim.notify(
+					"[lspconfig] Unable to find ESLint library.",
+					vim.log.levels.WARN
+				)
 				return {}
 			end,
 		},

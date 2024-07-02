@@ -21,7 +21,10 @@ return {
 			dap.adapters.node2 = {
 				type = "executable",
 				command = "node",
-				args = { os.getenv("HOME") .. "/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js" },
+				args = {
+					os.getenv("HOME")
+						.. "/dev/microsoft/vscode-node-debug2/out/src/nodeDebug.js",
+				},
 			}
 
 			-- DAP configurations for JavaScript
@@ -67,6 +70,12 @@ return {
 					b = {
 						function()
 							dap.toggle_breakpoint()
+						end,
+						"DAP: toggle breakpoint",
+					},
+					B = {
+						function()
+							dap.clear_breakpoints()
 						end,
 						"DAP: toggle breakpoint",
 					},
@@ -152,26 +161,36 @@ return {
 			}, { prefix = "<leader>" })
 
 			-- Define DAP signs for breakpoints and debug points
-			fn.sign_define(
-				"DapBreakpoint",
-				{ text = "", texthl = "debugBreakpoint", linehl = "", numhl = "debugBreakpoint" }
-			)
-			fn.sign_define(
-				"DapBreakpointCondition",
-				{ text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "debugBreakpoint" }
-			)
-			fn.sign_define(
-				"DapBreakpointRejected",
-				{ text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "debugBreakpoint" }
-			)
-			fn.sign_define(
-				"DapLogPoint",
-				{ text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "debugBreakpoint" }
-			)
-			fn.sign_define(
-				"DapStopped",
-				{ text = "", texthl = "debugBreakpoint", linehl = "debugPC", numhl = "DiagnosticSignError" }
-			)
+			fn.sign_define("DapBreakpoint", {
+				text = "",
+				texthl = "debugBreakpoint",
+				linehl = "",
+				numhl = "",
+			})
+			fn.sign_define("DapBreakpointCondition", {
+				text = "",
+				texthl = "DiagnosticSignWarn",
+				linehl = "",
+				numhl = "",
+			})
+			fn.sign_define("DapBreakpointRejected", {
+				text = "",
+				texthl = "DiagnosticSignError",
+				linehl = "",
+				numhl = "",
+			})
+			fn.sign_define("DapLogPoint", {
+				text = " ",
+				texthl = "debugBreakpoint",
+				linehl = "",
+				numhl = "",
+			})
+			fn.sign_define("DapStopped", {
+				text = "",
+				texthl = "debugBreakpoint",
+				linehl = "",
+				numhl = "",
+			})
 		end,
 	},
 }

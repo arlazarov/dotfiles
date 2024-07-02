@@ -27,18 +27,26 @@ return {
 				prettier = {
 					prepend_args = {
 						"--single-quote",
-						"--useTabs",
-						"--print-width 80",
-						"--arrow-parent avoid",
+						"--use-tabs",
+						"--print-width",
+						"80",
+						"--arrow-parens",
+						"avoid",
+					},
+				},
+				stylua = {
+					prepend_args = {
+						"--column-width",
+						"80",
 					},
 				},
 			},
 		})
 
 		require("which-key").register({
-			["<leader>"] = {
+			["<leader>f"] = {
 				function()
-					conform.format({ lsp_fallback = true, asynnc = false, timeout_ms = 1000 })
+					conform.format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
 				end,
 				"Format file",
 			},

@@ -7,6 +7,9 @@ return {
 	config = function()
 		local saga = require("lspsaga")
 		saga.setup({
+			ui = {
+				code_action = "",
+			},
 			move_in_saga = { prev = "<C-k>", next = "<C-j>" },
 			definition_action_keys = { edit = "<CR>" },
 			-- Disable the light bulb

@@ -13,3 +13,6 @@ dir
 Zsh
 tmux
 LSP
+Ctrl
+jk
+Quickfix

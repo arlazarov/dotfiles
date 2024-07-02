@@ -19,7 +19,7 @@ map("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true }) -- Wrap text movemen
 map("n", "<C-n>", "<cmd>cnext<CR>", opts) -- Quickfix next
 map("n", "<C-p>", "<cmd>cprev<CR>", opts) -- Quickfix prev
 map("n", "<leader>Y", [["+Y]], opts) -- Copy line to clipboard
-map("n", "<leader>vp", "`[v`]", opts) -- Reselect pasted text
+map("n", "vv", "`[v`]", opts) -- Reselect pasted text
 map("n", "YY", "va{Vy", opts) -- Select inside {}
 map("n", "YA", "<cmd>%y<cr>", opts) -- Select all text
 map("n", "gR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>]], opts) -- Search and replace
@@ -33,33 +33,33 @@ map({ "n", "x" }, "<leader>p", [["+p]], opts) -- Paste from clipboard
 require("which-key").register({
 	w = {
 		name = "Window",
-		s = { "<c-w>s", "Split" },
-		v = { "<c-w>v", "vSplit" },
-		c = { "<cmd>close<cr>", "Close" },
-		["="] = { "<C-w>=", "Equal" },
+		s = { "<c-w>s", "Window: split" },
+		v = { "<c-w>v", "Window: vsplit" },
+		c = { "<cmd>close<cr>", "Window: close" },
+		["="] = { "<C-w>=", "Window: equal" },
 	},
 	t = {
 		name = "Tab",
-		n = { "<cmd>tabnew<cr>", "New" },
-		c = { "<cmd>tabclose<cr>", "Close" },
-		l = { "<cmd>tabn<cr>", "Next" },
-		h = { "<cmd>tabp<cr>", "Prev" },
-		m = { "<cmd>tabnew %<cr>", "Move" },
+		n = { "<cmd>tabnew<cr>", "Tab: new" },
+		c = { "<cmd>tabclose<cr>", "Tab: close" },
+		l = { "<cmd>tabn<cr>", "Tab: next" },
+		h = { "<cmd>tabp<cr>", "Tab: previous" },
+		m = { "<cmd>tabnew %<cr>", "Tab: move to new tab" },
 	},
 	b = {
 		name = "Buffer",
-		c = { "<cmd>bdelete!<cr>", "Close" },
-		k = { "<cmd>%bd|e#<cr>", "Close all" },
-		l = { "<cmd>bnext<cr>", "Next" },
-		h = { "<cmd>bprevious<cr>", "Prev" },
+		c = { "<cmd>bdelete!<cr>", "Buffer: close" },
+		k = { "<cmd>%bd|e#<cr>", "Buffer: close all" },
+		l = { "<cmd>bnext<cr>", "Buffer: next" },
+		h = { "<cmd>bprevious<cr>", "Buffer: previous" },
 	},
 	o = {
 		name = "Other",
-		s = { "<cmd>setlocal spell!<cr>", "Spell" },
-		n = { "<cmd>set number!<cr>", "Number" },
-		h = { "<cmd>nohl<cr>", "No highlight" },
-		["+"] = { "<c-a>", "Inc" },
-		["-"] = { "<c-x>", "Dec" },
+		s = { "<cmd>setlocal spell!<cr>", "Other: spell" },
+		n = { "<cmd>set number!<cr>", "Other: number" },
+		h = { "<cmd>nohl<cr>", "Other: no highlight" },
+		["+"] = { "<c-a>", "Other: inc" },
+		["-"] = { "<c-x>", "Other: dec" },
 	},
 	H = { "<cmd>nohl<cr>", "No highlight" },
 }, {

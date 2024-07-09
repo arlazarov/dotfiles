@@ -19,7 +19,7 @@ set.ttyfast = true
 set.cmdheight = 2
 set.autoread = true
 set.wildmenu = true
-set.spell = true
+set.spell = false
 set.background = "dark"
 
 -- Indentation
@@ -59,6 +59,7 @@ set.backspace = "indent,eol,start"
 
 -- Commands
 vim.api.nvim_command("set nomodeline")
-vim.api.nvim_command("set noexpandtab")
 vim.api.nvim_command("set nofoldenable")
 vim.api.nvim_command("set completeopt=preview")
+vim.cmd("filetype plugin indent on")
+vim.cmd("syntax enable")

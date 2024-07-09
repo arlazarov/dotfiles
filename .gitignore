@@ -1,7 +1,5 @@
 *
 !.gitignore
-!zsh/
-!zsh/.zshrc
 !tmux/
 !tmux/tmux.conf
 !yabai/
@@ -12,7 +10,9 @@
 !nvim/lua/
 !nvim/lua/**
 !nvim/init.lua
+!nvim/.eslintrc.msj
 !nvim/spell/
 !nvim/spell/*
 !nvim/vimwiki/
 !nvim/vimwiki/*
+*.DS_Store

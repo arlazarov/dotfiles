@@ -2,11 +2,11 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp", -- Completion source for LSP
-		"folke/which-key.nvim", -- Keybinding hints
-		"seblj/nvim-echo-diagnostics", -- Echo diagnostics in the command line
-		{ "antosha417/nvim-lsp-file-operations", config = true }, -- File operations
-		{ "folke/neodev.nvim", opts = {} }, -- Neovim dev setup
+		"hrsh7th/cmp-nvim-lsp",
+		"folke/which-key.nvim",
+		"seblj/nvim-echo-diagnostics",
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{ "folke/neodev.nvim", opts = {} },
 	},
 	opts = {
 		inlay_hints = { enabled = true }, -- Enable inlay hints
@@ -23,6 +23,7 @@ return {
 			"bashls",
 			"emmet_language_server",
 			"eslint",
+			"omnisharp",
 		}
 
 		-- Ensure the servers are installed via mason-lspconfig
@@ -35,7 +36,8 @@ return {
 			}
 
 			-- Check for custom options for the server
-			local has_custom_opts, server_custom_opts = pcall(require, "plugins.lsp.languages." .. server)
+			local has_custom_opts, server_custom_opts =
+				pcall(require, "plugins.lsp.languages." .. server)
 			if has_custom_opts then
 				opts = vim.tbl_deep_extend("force", opts, server_custom_opts)
 			end

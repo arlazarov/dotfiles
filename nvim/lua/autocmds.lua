@@ -1,11 +1,3 @@
--- Illuminant
-vim.api.nvim_create_augroup("IlluminateGroup", { clear = true })
-vim.api.nvim_create_autocmd({ "VimEnter", "BufRead", "BufNewFile" }, {
-	group = "IlluminateGroup",
-	callback = function()
-		require("illuminate").on_attach()
-	end,
-})
 -- Check for file update
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
 	callback = function()

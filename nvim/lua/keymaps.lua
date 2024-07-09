@@ -1,6 +1,8 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
+vim.api.nvim_set_keymap("i", "<C-c>", "<ESC>", opts)
+
 -- Terminal mode
 map("t", "<Esc>", "<C-\\><C-n>", opts) -- Exit terminal mode
 
@@ -31,35 +33,12 @@ map({ "n", "x" }, "<leader>p", [["+p]], opts) -- Paste from clipboard
 
 -- Setup which-key for additional mappings
 require("which-key").register({
-	w = {
-		name = "Window",
-		s = { "<c-w>s", "Window: split" },
-		v = { "<c-w>v", "Window: vsplit" },
-		c = { "<cmd>close<cr>", "Window: close" },
-		["="] = { "<C-w>=", "Window: equal" },
-	},
-	t = {
-		name = "Tab",
-		n = { "<cmd>tabnew<cr>", "Tab: new" },
-		c = { "<cmd>tabclose<cr>", "Tab: close" },
-		l = { "<cmd>tabn<cr>", "Tab: next" },
-		h = { "<cmd>tabp<cr>", "Tab: previous" },
-		m = { "<cmd>tabnew %<cr>", "Tab: move to new tab" },
-	},
 	b = {
 		name = "Buffer",
 		c = { "<cmd>bdelete!<cr>", "Buffer: close" },
 		k = { "<cmd>%bd|e#<cr>", "Buffer: close all" },
 		l = { "<cmd>bnext<cr>", "Buffer: next" },
 		h = { "<cmd>bprevious<cr>", "Buffer: previous" },
-	},
-	o = {
-		name = "Other",
-		s = { "<cmd>setlocal spell!<cr>", "Other: spell" },
-		n = { "<cmd>set number!<cr>", "Other: number" },
-		h = { "<cmd>nohl<cr>", "Other: no highlight" },
-		["+"] = { "<c-a>", "Other: inc" },
-		["-"] = { "<c-x>", "Other: dec" },
 	},
 	H = { "<cmd>nohl<cr>", "No highlight" },
 }, {

@@ -7,21 +7,28 @@ return {
 	config = function()
 		local saga = require("lspsaga")
 		saga.setup({
-			ui = {
-				code_action = "",
-			},
 			move_in_saga = { prev = "<C-k>", next = "<C-j>" },
 			definition_action_keys = { edit = "<CR>" },
-			-- Disable the light bulb
-			code_action_lightbulb = { enable = false },
+			code_action_lightbulb = {
+				enable = false,
+				enable_in_insert = true,
+				sign = true,
+				sign_priority = 40,
+				virtual_text = false,
+			},
 			debug = false,
 			use_saga_diagnostic_sign = true,
-			-- Diagnostic signs
 			diagnostic_signs = {
 				error = "",
 				warn = "",
 				hint = "",
 				info = "",
+			},
+			hover = {
+				max_width = 0.5,
+				max_height = 0.8,
+				open_link = "gx",
+				open_cmd = "!chrome",
 			},
 			diagnostic_header_icon = "   ",
 			code_action_icon = " ",
@@ -33,13 +40,36 @@ return {
 				vsplit = "s",
 				split = "i",
 				quit = "q",
-				scroll_down = "<C-f>",
-				scroll_up = "<C-b>",
+				scroll_down = "<C-j>",
+				scroll_up = "<C-k>",
+			},
+			ui = {
+				border = "rounded",
+				title = true,
+				winblend = 0,
+				expand = "",
+				collapse = "",
+				-- code_action = "󰛨",
+				code_action = "",
+				diagnostic = "",
+				incoming = " ",
+				outgoing = " ",
+				hover = " ",
+				kind = {},
+			},
+			diagnostic = {
+				show_code_action = true,
+				show_source = true,
+				jump_num_shortcut = true,
+				max_width = 0.7,
+				custom_fix = nil,
+				custom_msg = nil,
+				text_hl_follow = false,
+				keys = { exec_action = "o", quit = "q", go_action = "g" },
 			},
 			code_action_keys = { quit = "q", exec = "<CR>" },
 			rename_action_keys = { quit = "<C-c>", exec = "<CR>" },
 			definition_preview_icon = "  ",
-			border_style = "rounded",
 			rename_prompt_prefix = "➤",
 			rename_output_qflist = {
 				enable = false,
@@ -49,6 +79,35 @@ return {
 			diagnostic_prefix_format = "%d. ",
 			diagnostic_message_format = "%m %c",
 			highlight_prefix = false,
+			implement = {
+				enable = true,
+				sign = true,
+				virtual_text = true,
+			},
+			symbol_in_winbar = {
+				enable = false,
+				separator = " ",
+				hide_keyword = true,
+				show_file = true,
+				folder_level = 2,
+				respect_root = false,
+				color_mode = true,
+			},
+			callhierarchy = {
+				show_detail = false,
+				keys = {
+					edit = "e",
+					vsplit = "s",
+					split = "i",
+					tabe = "t",
+					jump = "o",
+					quit = "q",
+					expand_collapse = "u",
+				},
+			},
+			beacon = { enable = true, frequency = 7 },
 		})
+
+		vim.keymap.set({ "n", "t" }, "<C-t>", "<cmd>Lspsaga term_toggle<cr>")
 	end,
 }

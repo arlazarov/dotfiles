@@ -93,7 +93,12 @@ return {
 				{ name = "cmp_tabnine", priority = 90 },
 				{ name = "luasnip", priority = 100 },
 				{ name = "path", priority = 99 },
-				{ name = "buffer", priority = 50, keyword_length = 1, max_item_count = 5 },
+				{
+					name = "buffer",
+					priority = 50,
+					keyword_length = 1,
+					max_item_count = 5,
+				},
 				{ name = "nvim_lsp_signature_help", priority = 50 },
 				{
 					name = "look",

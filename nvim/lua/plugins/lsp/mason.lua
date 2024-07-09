@@ -32,6 +32,7 @@ return {
 				"emmet_ls",
 				"pyright",
 				"node2",
+				"omnisharp",
 			},
 		})
 
@@ -41,7 +42,7 @@ return {
 				"prettier",
 				"stylua",
 				"pylint",
-				"eslint_d",
+				"eslint",
 				"emmet-language-server",
 			},
 		})

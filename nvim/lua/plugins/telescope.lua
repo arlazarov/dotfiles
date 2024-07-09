@@ -9,7 +9,10 @@ return {
 		"folke/noice.nvim",
 		"folke/trouble.nvim",
 		"folke/which-key.nvim",
-		{ "benfowler/telescope-luasnip.nvim", module = "telescope._extensions.luasnip" },
+		{
+			"benfowler/telescope-luasnip.nvim",
+			module = "telescope._extensions.luasnip",
+		},
 		"nvim-telescope/telescope-frecency.nvim",
 		"tami5/sqlite.lua",
 	},
@@ -38,7 +41,15 @@ return {
 					"--column",
 					"--smart-case",
 				},
-				find_command = { "fd", "--type", "file", "--hidden", "--follow", "--exclude", ".git" },
+				find_command = {
+					"fd",
+					"--type",
+					"file",
+					"--hidden",
+					"--follow",
+					"--exclude",
+					".git",
+				},
 				file_ignore_patterns = {
 					"node_modules",
 					".git/",
@@ -48,7 +59,8 @@ return {
 					i = {
 						["<C-k>"] = actions.move_selection_previous,
 						["<C-j>"] = actions.move_selection_next,
-						["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+						["<C-q>"] = actions.send_selected_to_qflist
+							+ custom_actions.open_trouble_qflist,
 						["<C-t>"] = trouble.open,
 					},
 				},
@@ -66,18 +78,19 @@ return {
 		wk.register({
 			f = {
 				name = "Telescope",
-				l = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Find in current buffer" },
+				l = {
+					"<cmd>Telescope current_buffer_fuzzy_find<cr>",
+					"Find in current buffer",
+				},
 				f = { "<cmd>Telescope find_files<cr>", "Find files" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Find recent files" },
 				s = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
 				c = { "<cmd>Telescope grep_string<cr>", "Search under cursor" },
 				t = { "<cmd>TodoTelescope<cr>", "Find todos" },
-				e = { "<cmd>Telescope frecency<cr>", "Find frequently used files" },
-			},
-			s = {
-				name = "Search",
-				f = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
-				b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in current buffer" },
+				e = {
+					"<cmd>Telescope frecency<cr>",
+					"Find frequently used files",
+				},
 			},
 		}, { prefix = "<leader>" })
 	end,

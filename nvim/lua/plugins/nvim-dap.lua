@@ -73,7 +73,7 @@ return {
 						end,
 						"DAP: toggle breakpoint",
 					},
-					B = {
+					["-"] = {
 						function()
 							dap.clear_breakpoints()
 						end,

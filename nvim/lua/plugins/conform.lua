@@ -9,8 +9,8 @@ return {
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
+				javascriptreact = { "eslint_d", "prettier" },
+				typescriptreact = { "eslint_d", "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
@@ -27,11 +27,12 @@ return {
 				prettier = {
 					prepend_args = {
 						"--single-quote",
-						"--use-tabs",
 						"--print-width",
 						"80",
 						"--arrow-parens",
 						"avoid",
+						"--trailing-comma",
+						"all",
 					},
 				},
 				stylua = {
@@ -40,13 +41,22 @@ return {
 						"80",
 					},
 				},
+				eslint_d = {
+					prepend_args = {
+						"--fix",
+					},
+				},
 			},
 		})
 
 		require("which-key").register({
-			["<leader>f"] = {
+			["<leader>"] = {
 				function()
-					conform.format({ lsp_fallback = true, async = false, timeout_ms = 1000 })
+					conform.format({
+						lsp_fallback = true,
+						async = false,
+						timeout_ms = 1000,
+					})
 				end,
 				"Format file",
 			},

@@ -1,7 +1,9 @@
 local M = {}
 
 M.setup = function()
-	local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+	-- local signs =
+	-- 	{ Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+	local signs = { Error = "", Warn = "", Hint = "󰛨", Info = "" }
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -25,14 +27,16 @@ M.setup = function()
 		},
 	}
 	vim.diagnostic.config(config)
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-		border = "rounded",
-		maxwidth = 60,
-	})
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-		border = "rounded",
-		maxwidth = 60,
-	})
+	vim.lsp.handlers["textDocument/hover"] =
+		vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+			maxwidth = 60,
+		})
+	vim.lsp.handlers["textDocument/signatureHelp"] =
+		vim.lsp.with(vim.lsp.handlers.signature_help, {
+			border = "rounded",
+			maxwidth = 60,
+		})
 	-- Remove unwanted errors
 	local function filter_tsserver_diagnostics(_, result, ctx, config)
 		if result.diagnostics == nil then
@@ -50,7 +54,8 @@ M.setup = function()
 		end
 		vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 	end
-	vim.lsp.handlers["textDocument/publishDiagnostics"] = filter_tsserver_diagnostics
+	vim.lsp.handlers["textDocument/publishDiagnostics"] =
+		filter_tsserver_diagnostics
 
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 	local echo_diagnostics = require("echo-diagnostics")
@@ -63,24 +68,24 @@ M.setup = function()
 			require("echo-diagnostics").echo_line_diagnostic()
 		end,
 	})
-end
 
-local function lsp_highlight_document(client)
-	require("illuminate").on_attach(client)
-end
-
-local keymaps = require("plugins.lsp.config.keymaps")
-
-M.on_attach = function(client, bufnr)
-	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	if client.server_capabilities.inlayHintProvider then
-		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+	local function lsp_highlight_document(client)
+		require("illuminate").on_attach(client)
 	end
-	if client.name == "tsserver" then
-		client.server_capabilities.document_formatting = false
+
+	local keymaps = require("plugins.lsp.config.keymaps")
+
+	M.on_attach = function(client, bufnr)
+		vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+		if client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		end
+		if client.name == "tsserver" then
+			client.server_capabilities.document_formatting = false
+		end
+		keymaps.map(bufnr)
+		lsp_highlight_document(client)
 	end
-	keymaps.map(bufnr)
-	lsp_highlight_document(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

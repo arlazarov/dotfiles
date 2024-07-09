@@ -5,10 +5,10 @@ return {
 	config = function()
 		vim.g.winresizer_start_key_enable = 0
 		require("which-key").register({
-			wr = {
+			r = {
 				"<cmd>WinResizerStartResize<cr>",
 				"Window: resize",
 			},
-		}, { prefix = "<leader>" })
+		}, { prefix = "<C-w>" })
 	end,
 }

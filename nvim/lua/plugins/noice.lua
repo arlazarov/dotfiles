@@ -71,7 +71,10 @@ return {
 						height = "auto",
 					},
 					win_options = {
-						winhighlight = { NormalFloat = "NormalFloat", FloatBorder = "FloatBorder" },
+						winhighlight = {
+							NormalFloat = "NormalFloat",
+							FloatBorder = "FloatBorder",
+						},
 					},
 				},
 				cmdline_popupmenu = {
@@ -90,7 +93,10 @@ return {
 						-- padding = { 0, 3 },
 					},
 					win_options = {
-						winhighlight = { NormalFloat = "NormalFloat", FloatBorder = "NoiceCmdlinePopupBorder" },
+						winhighlight = {
+							NormalFloat = "NormalFloat",
+							FloatBorder = "NoiceCmdlinePopupBorder",
+						},
 					},
 				},
 				hover = {

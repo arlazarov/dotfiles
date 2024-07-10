@@ -55,21 +55,21 @@ return {
 		}
 
 		lualine.setup({
-			tabline = {
-				lualine_a = { "tabs" },
-				lualine_b = { "branch" },
-				lualine_c = { "filename" },
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
-			},
+			-- tabline = {
+			-- 	lualine_a = { "tabs" },
+			-- 	lualine_b = { "branch" },
+			-- 	lualine_c = { "filename" },
+			-- 	lualine_x = {},
+			-- 	lualine_y = {},
+			-- 	lualine_z = {},
+			-- },
 			options = {
 				theme = my_lualine_theme,
 			},
 			sections = {
 				lualine_b = { "branch" },
-				lualine_c = { "filename" },
-				-- lualine_c = { "lsp_progress" },
+				-- lualine_c = { "filename" },
+				lualine_c = { "lsp_progress" },
 
 				lualine_x = {
 					{

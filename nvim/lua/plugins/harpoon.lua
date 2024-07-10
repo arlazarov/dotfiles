@@ -1,5 +1,6 @@
 return {
 	"ThePrimeagen/harpoon",
+	priority = 1,
 
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -98,6 +99,12 @@ return {
 
 		vim.keymap.set("n", "<leader><cr>", function()
 			require("harpoon.ui").nav_next()
+		end, { noremap = true, silent = true })
+		vim.keymap.set("n", "<M-C-l>", function()
+			require("harpoon.ui").nav_next()
+		end, { noremap = true, silent = true })
+		vim.keymap.set("n", "<M-C-h>", function()
+			require("harpoon.ui").nav_prev()
 		end, { noremap = true, silent = true })
 	end,
 }

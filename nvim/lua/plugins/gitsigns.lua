@@ -6,9 +6,6 @@ return {
 	opts = {
 		on_attach = function(bufnr)
 			local gs = package.loaded.gitsigns
-			-- local function map(mode, l, r, desc)
-			-- 	vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-			-- end
 			local wk = require("which-key")
 			wk.register({
 				g = {
@@ -21,7 +18,10 @@ return {
 					R = { gs.reset_buffer, "Git: reset buffer" },
 					u = { gs.undo_stage_hunk, "Git: undo stage hunk" },
 					p = { gs.preview_hunk, "Git: preview hunk" },
-					B = { gs.toggle_current_line_blame, "Git: Toggle line blame" },
+					B = {
+						gs.toggle_current_line_blame,
+						"Git: Toggle line blame",
+					},
 					d = { gs.diffthis, "Git: diff this" },
 					b = {
 						function()
@@ -39,8 +39,14 @@ return {
 			}, { prefix = "<leader>", mode = "n" })
 			wk.register({
 				h = {
-					s = { gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }), "Git: stage hunk" },
-					r = { gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }), "Git: reset hunk" },
+					s = {
+						gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }),
+						"Git: stage hunk",
+					},
+					r = {
+						gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }),
+						"Git: reset hunk",
+					},
 				},
 			}, { prefix = "<leader>", mode = "v" })
 

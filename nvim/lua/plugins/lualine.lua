@@ -44,7 +44,11 @@ return {
 				c = { bg = colors.bg, fg = colors.fg },
 			},
 			inactive = {
-				a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = "bold" },
+				a = {
+					bg = colors.inactive_bg,
+					fg = colors.semilightgray,
+					gui = "bold",
+				},
 				b = { bg = colors.inactive_bg, fg = colors.semilightgray },
 				c = { bg = colors.inactive_bg, fg = colors.semilightgray },
 			},
@@ -52,7 +56,7 @@ return {
 
 		lualine.setup({
 			tabline = {
-				lualine_a = {},
+				lualine_a = { "tabs" },
 				lualine_b = { "branch" },
 				lualine_c = { "filename" },
 				lualine_x = {},
@@ -63,7 +67,10 @@ return {
 				theme = my_lualine_theme,
 			},
 			sections = {
-				lualine_c = { "lsp_progress" },
+				lualine_b = { "branch" },
+				lualine_c = { "filename" },
+				-- lualine_c = { "lsp_progress" },
+
 				lualine_x = {
 					{
 						lazy_status.updates,

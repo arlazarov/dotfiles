@@ -1,7 +1,21 @@
 local map = vim.keymap.set
+local apimap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-vim.api.nvim_set_keymap("i", "<C-c>", "<ESC>", opts)
+apimap("i", "<C-c>", "<ESC>", opts)
+
+-- Disable error messages for 'n' and 'N'  search command
+local function norm_unmapped(c)
+	return vim.cmd({ cmd = "norm", args = { c }, bang = true })
+end
+
+vim.keymap.set("n", "n", function()
+	pcall(norm_unmapped, "n")
+end)
+vim.keymap.set("n", "N", function()
+	pcall(norm_unmapped, "N")
+end)
+vim.cmd([[nnoremap / :silent! /]])
 
 -- Terminal mode
 map("t", "<Esc>", "<C-\\><C-n>", opts) -- Exit terminal mode
@@ -37,8 +51,18 @@ require("which-key").register({
 		name = "Buffer",
 		c = { "<cmd>bdelete!<cr>", "Buffer: close" },
 		k = { "<cmd>%bd|e#<cr>", "Buffer: close all" },
-		l = { "<cmd>bnext<cr>", "Buffer: next" },
-		h = { "<cmd>bprevious<cr>", "Buffer: previous" },
+		n = { "<cmd>bnext<cr>", "Buffer: next" },
+		p = { "<cmd>bprevious<cr>", "Buffer: previous" },
+	},
+	t = {
+		name = "Tabs",
+		o = { "<cmd>tabs<cr>", "Tab: New" },
+		a = { "<cmd>tabnew<cr>", "Tab: New" },
+		e = { "<cmd>tabedit %<cr>", "Tab: New" },
+		c = { "<cmd>tabclose<cr>", "Tab: Close" },
+		k = { "<cmd>tabonly<cr>", "Tab: Close all but current" },
+		n = { "<cmd>tabnext<cr>", "Tab: Next" },
+		p = { "<cmd>tabprevious<cr>", "Tab: Previous" },
 	},
 	H = { "<cmd>nohl<cr>", "No highlight" },
 }, {
@@ -48,3 +72,22 @@ require("which-key").register({
 	noremap = true,
 	nowait = true,
 })
+apimap("n", "<C-M-l>", "<cmd>tabnext<cr>", { noremap = true, silent = true })
+apimap(
+	"n",
+	"<C-M-h>",
+	"<cmd>tabprevious<cr>",
+	{ noremap = true, silent = true }
+)
+apimap(
+	"n",
+	"<S-C-M-l>",
+	"<cmd>tabmove +1<cr>",
+	{ noremap = true, silent = true }
+)
+apimap(
+	"n",
+	"<S-C-M-h>",
+	"<cmd>tabmove -1<cr>",
+	{ noremap = true, silent = true }
+)

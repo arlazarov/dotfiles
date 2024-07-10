@@ -1,30 +1,30 @@
 return {
 	"ThePrimeagen/harpoon",
-	dependencies = { "nvim-lua/plenary.nvim", "folke/which-key.nvim" },
-	config = function()
-		require("harpoon").setup({})
 
-		-- Function to switch files
-		local current_index = 1
-		local function cycle_files(direction)
-			local harpoon_ui = require("harpoon.ui")
-			local harpoon_mark = require("harpoon.mark")
-			local total_files = harpoon_mark.get_length()
-			current_index = current_index + direction
-			if current_index > total_files then
-				current_index = 1
-			elseif current_index < 1 then
-				current_index = total_files
-			end
-			harpoon_ui.nav_file(current_index)
-		end
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"folke/which-key.nvim",
+	},
+
+	config = function()
+		require("harpoon").setup({
+			tabline = true,
+			tabline_prefix = "   ",
+			tabline_suffix = "   ",
+		})
+
+		vim.cmd("highlight! HarpoonInactive guibg=#112638 guifg=#c3ccdc")
+		vim.cmd("highlight! HarpoonActive guibg=#65D1FF guifg=#112638")
+		vim.cmd("highlight! HarpoonNumberActive guibg=#65D1FF guifg=#112648")
+		vim.cmd("highlight! HarpoonNumberInactive guibg=#112638 guifg=#c3ccdc")
+		vim.cmd("highlight! TabLineFill guibg=#112638 guifg=white")
 
 		-- Setup which-key bindings
 		local wk = require("which-key")
 		wk.register({
 			["<cr>"] = {
 				function()
-					cycle_files(1)
+					require("harpoon.ui").nav_next()
 				end,
 				"Harpoon: Next File",
 			},
@@ -33,6 +33,7 @@ return {
 				a = {
 					function()
 						require("harpoon.mark").add_file()
+						vim.cmd("e")
 					end,
 					"Harpoon: Add File",
 				},
@@ -68,25 +69,27 @@ return {
 				},
 				n = {
 					function()
-						cycle_files(1)
+						require("harpoon.ui").nav_next()
 					end,
 					"Harpoon: Next File",
 				},
 				p = {
 					function()
-						cycle_files(-1)
+						require("harpoon.ui").nav_prev()
 					end,
 					"Harpoon: Previous File",
 				},
 				d = {
 					function()
 						require("harpoon.mark").rm_file()
+						vim.cmd("e")
 					end,
 					"Harpoon: Remove File",
 				},
 				c = {
 					function()
 						require("harpoon.mark").clear_all()
+						vim.cmd("e")
 					end,
 					"Harpoon: Clear All Files",
 				},
@@ -94,7 +97,7 @@ return {
 		}, { prefix = "<leader>" })
 
 		vim.keymap.set("n", "<leader><cr>", function()
-			require("harpoon.ui").toggle_quick_menu()
+			require("harpoon.ui").nav_next()
 		end, { noremap = true, silent = true })
 	end,
 }

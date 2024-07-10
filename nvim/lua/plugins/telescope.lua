@@ -87,6 +87,11 @@ return {
 				s = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
 				c = { "<cmd>Telescope grep_string<cr>", "Search under cursor" },
 				t = { "<cmd>TodoTelescope<cr>", "Find todos" },
+				g = { "<cmd>Telescope spell_suggest<cr>", "Find files" },
+				["."] = {
+					"<cmd>Telescope lsp_document_symbols<cr>",
+					"Find files",
+				},
 				e = {
 					"<cmd>Telescope frecency<cr>",
 					"Find frequently used files",

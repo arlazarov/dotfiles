@@ -1,9 +1,6 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Map <C-c> to <ESC> in insert mode
-map("i", "<C-c>", "<ESC>", opts)
-
 -- Disable error messages for 'n' and 'N' search command
 local function norm_unmapped(c)
 	return vim.cmd({ cmd = "norm", args = { c }, bang = true })
@@ -16,47 +13,48 @@ map("n", "N", function()
 end, opts)
 
 -- Terminal mode
+map("i", "<C-c>", "<ESC>", opts) -- Rebind C-c
 map("t", "<Esc>", "<C-\\><C-n>", opts) -- Exit terminal mode
-
--- Normal and Visual modes
 map({ "n", "v" }, "<Space>", "<Nop>", opts) -- Unbind Space
 map({ "n", "x" }, "Q", "<nop>", opts) -- Unbind Q
 
--- Insert mode
-map("i", "jk", "<ESC>", opts) -- jk to exit insert mode
-map("i", "<C-l>", "<Del>", opts) -- Ctrl+l to delete character
-
--- Normal mode
-map("n", "<backspace><backspace>", '<cmd>bdelete!"<cr>', opts) -- Delete buffer
-map("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true }) -- Wrap text movement
-map("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true }) -- Wrap text movement
-map("n", "<C-n>", "<cmd>cnext<CR>", opts) -- Quickfix next
-map("n", "<C-p>", "<cmd>cprev<CR>", opts) -- Quickfix prev
-map("n", "<leader>Y", [["+Y]], opts) -- Copy line to clipboard
-map("n", "vv", "`[v`]", opts) -- Reselect pasted text
-map("n", "YY", "va{Vy", opts) -- Select inside {}
-map("n", "YA", "<cmd>%y<cr>", opts) -- Select all text
-map("n", "gR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>]], opts) -- Search and replace
-map("n", "gr", [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>]], opts) -- Search and replace
-
--- Normal and Visual modes
-map({ "n", "x" }, "<leader>y", [["+y]], opts) -- Copy to clipboard
-map({ "n", "x" }, "<leader>p", [["+p]], opts) -- Paste from clipboard
+map("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true })
+map("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true })
 
 -- Setup which-key for additional mappings
-require("which-key").register({
-	b = {
-		name = "Buffer",
-		c = { "<cmd>bdelete!<cr>", "Buffer: close" },
-		k = { "<cmd>%bd|e#<cr>", "Buffer: close all" },
-		n = { "<cmd>bnext<cr>", "Buffer: next" },
-		p = { "<cmd>bprevious<cr>", "Buffer: previous" },
+require("which-key").add({
+	-- Normal and Visual modes
+	{
+		mode = { "n", "x" },
+		hidden = true,
+		{ "<leader>y", [["+y]] }, -- Copy to clipboard
+		{ "<leader>p", [["+p]] }, -- Paste from clipboard
 	},
-	H = { "<cmd>nohl<cr>", "No highlight" },
-}, {
-	mode = "n", -- Normal mode
-	prefix = "<leader>",
-	silent = true,
-	noremap = true,
-	nowait = true,
+	-- Insert mode
+	{
+		mode = { "i" },
+		{ "jk", "<ESC>" }, -- jk to exit insert mode
+		{ "<C-l>", "<Del>" }, -- Ctrl+l to delete character
+	},
+	-- Normal mode
+	{ "<backspace><backspace>", '<cmd>bdelete!"<cr>' }, -- Delete buffer
+	{ "<C-n>", "<cmd>cnext<CR>" }, -- Quickfix next
+	{ "<C-p>", "<cmd>cprev<CR>" }, -- Quickfix prev
+	{ "vv", "`[v`]" }, -- Reselect pasted text
+	{ "YY", "va{Vy" }, -- Select inside {}
+	{ "YA", "<cmd>%y<cr>" }, -- Select all text
+	{ "gR", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>]] }, -- Search and replace
+	{ "gr", [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>]] }, -- Search and replace
+	{
+		hidden = true,
+		{ "<leader><cr>", "" },
+		{ "<leader>Y", [["+Y]], desc = "Copy line" }, -- Copy line to clipboard
+	},
+	-- Buffer
+	{ "<leader>b", group = "Buffer" },
+	{ "<leader>bc", "<cmd>bdelete!<cr>", desc = "Buffer: close" },
+	{ "<leader>bk", "<cmd>%bd|e#<cr>", desc = "Buffer: close all" },
+	{ "<leader>bn", "<cmd>bnext<cr>", desc = "Buffer: next" },
+	{ "<leader>bp", "<cmd>bprevious<cr>", desc = "Buffer: previous" },
+	{ "<leader>H", "<cmd>nohl<cr>", desc = "No highlight" },
 })

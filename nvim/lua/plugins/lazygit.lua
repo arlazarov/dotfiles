@@ -14,17 +14,16 @@ return {
 	},
 	config = function()
 		require("telescope").load_extension("lazygit")
-		require("which-key").register({
-			g = {
-				name = "LazyGit",
-				g = { "<cmd>LazyGit<cr>", "LazyGit: open" },
-				f = {
-					function()
-						require("telescope").extensions.lazygit.lazygit()
-					end,
-					"LazyGit: find",
-				},
+		require("which-key").add({
+			{ "<leader>g", group = "LazyGit" },
+			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit: open" },
+			{
+				"<leader>gf",
+				function()
+					require("telescope").extensions.lazygit.lazygit()
+				end,
+				desc = "LazyGit: find",
 			},
-		}, { prefix = "<space>" })
+		})
 	end,
 }

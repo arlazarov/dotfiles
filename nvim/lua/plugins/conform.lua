@@ -33,6 +33,8 @@ return {
 						"avoid",
 						"--trailing-comma",
 						"all",
+						"--bracket-same-line",
+						"false",
 					},
 				},
 				stylua = {
@@ -49,8 +51,9 @@ return {
 			},
 		})
 
-		require("which-key").register({
-			["<leader>"] = {
+		require("which-key").add({
+			{
+				"<leader><leader>",
 				function()
 					conform.format({
 						lsp_fallback = true,
@@ -58,8 +61,8 @@ return {
 						timeout_ms = 1000,
 					})
 				end,
-				"Format file",
+				desc = "Format file",
 			},
-		}, { prefix = "<leader>", mode = { "n", "v" } })
+		})
 	end,
 }

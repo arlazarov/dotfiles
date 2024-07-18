@@ -12,8 +12,9 @@ return {
 		vim.keymap.set("n", "<Tab>", api.tree.toggle, { desc = "toggle" })
 
 		-- Setup which-key for nvim-tree
-		require("which-key").register({
-			e = {
+		require("which-key").add({
+			{
+				"<leader>e",
 				function()
 					vim.cmd("cd %:p:h")
 					vim.cmd("pwd")
@@ -22,9 +23,9 @@ return {
 						find_file = true,
 					})
 				end,
-				"Nvim-tree: setup",
+				desc = "Nvim-tree: setup",
 			},
-		}, { prefix = "<leader>" })
+		})
 
 		-- Custom keybindings for nvim-tree
 		local function my_on_attach(bufnr)

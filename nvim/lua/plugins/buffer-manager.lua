@@ -28,15 +28,14 @@ return {
 		})
 
 		local buffer = require("buffer_manager.ui")
-		require("which-key").register({
-			b = {
-				o = {
-					function()
-						buffer.toggle_quick_menu()
-					end,
-					"Buffer: toggle",
-				},
+		require("which-key").add({
+			{
+				"<leader>bo",
+				function()
+					buffer.toggle_quick_menu()
+				end,
+				desc = "Buffer: toggle",
 			},
-		}, { prefix = "<space>" })
+		})
 	end,
 }

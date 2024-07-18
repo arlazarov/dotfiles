@@ -21,6 +21,9 @@ return {
 			{ rule = "no-underscore-dangle", severity = "off" },
 			{ rule = "no-return-await", severity = "off" },
 			{ rule = "implicit-arrow-linebreak", severity = "off" },
+			{ rule = "operator-linebreak", severity = "off" },
+			{ rule = "curly", severity = "off" },
+			{ rule = "nonblock-statement-body-position", severity = "off" },
 			{
 				rule = "no-unused-vars",
 				severity = "off",
@@ -29,7 +32,7 @@ return {
 		},
 		run = "onType",
 		problems = {
-			shortenToSingleLine = false,
+			shortenToSingleLine = true,
 		},
 	},
 	root_dir = util.root_pattern(

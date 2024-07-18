@@ -102,14 +102,15 @@ return {
 			},
 		})
 
-		require("which-key").register({
-			["o"] = {
+		require("which-key").add({
+			{
+				"<leader>o",
 				function()
 					require("oil").open(".")
 				end,
-				"Oil",
+				desc = "Oil",
 			},
-		}, { prefix = "<leader>" })
+		})
 
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "OilEnter",

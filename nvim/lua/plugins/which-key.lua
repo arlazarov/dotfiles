@@ -1,10 +1,25 @@
 return {
 	"folke/which-key.nvim",
+	dependencies = {
+		"echasnovski/mini.icons", -- Добавление mini.icons как зависимость
+	},
 	event = "VeryLazy",
 	lazy = false,
 	init = function()
 		vim.o.timeout = true
 		vim.o.timeoutlen = 500
+	end,
+
+	config = function()
+		require("mini.icons").setup({})
+		require("which-key").setup({
+			icons = {
+				rules = false,
+				breadcrumb = "»",
+				separator = "➜",
+				group = "+ ",
+			},
+		})
 	end,
 
 	opts = {
@@ -61,7 +76,16 @@ return {
 			align = "left",
 		},
 		ignore_missing = true,
-		hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " },
+		hidden = {
+			"<silent>",
+			"<cmd>",
+			"<Cmd>",
+			"<CR>",
+			"^:",
+			"^ ",
+			"^call ",
+			"^lua ",
+		},
 		show_help = false,
 		show_keys = true,
 		triggers = "auto",

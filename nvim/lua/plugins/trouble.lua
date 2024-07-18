@@ -17,7 +17,11 @@ return {
 								severity = vim.diagnostic.severity.ERROR, -- errors only
 								-- limit to files in the current project
 								function(item)
-									return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+									return item.filename:find(
+										(vim.loop or vim.uv).cwd(),
+										1,
+										true
+									)
 								end,
 							},
 						},
@@ -25,20 +29,29 @@ return {
 				},
 			},
 		})
-		local wk = require("which-key")
-
 		-- Register key mappings
-		wk.register({
-			x = {
-				name = "Trouble",
-				x = { "<cmd>Trouble diagnostics toggle<CR>", "Trouble: toggle" },
-				q = { "<cmd>Trouble qflist toggle<CR>", "Trouble: quickfix list" },
-				l = { "<cmd>Trouble loclist toggle<CR>", "Trouble: location list" },
+		require("which-key").add({
+			{ "<leader>x", group = "Trouble" },
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<CR>",
+				desc = "Trouble: toggle",
 			},
-		}, { prefix = "<leader>" })
-
-		wk.register({
-			gR = { "<cmd>Trouble lsp_references<CR>", "LSP References (Trouble)" },
+			{
+				"<leader>xq",
+				"<cmd>Trouble qflist toggle<CR>",
+				desc = "Trouble: quickfix list",
+			},
+			{
+				"<leader>xl",
+				"<cmd>Trouble loclist toggle<CR>",
+				desc = "Trouble: location list",
+			},
+			{
+				"gR",
+				"<cmd>Trouble lsp_references<CR>",
+				desc = "LSP References (Trouble)",
+			},
 		})
 	end,
 }

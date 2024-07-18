@@ -1,6 +1,5 @@
 return {
 	"folke/twilight.nvim",
-	dependencies = "folke/which-key.nvim",
 	opts = {
 		dimming = {
 			alpha = 0.25,
@@ -17,7 +16,4 @@ return {
 			"if_statement",
 		},
 	},
-	-- require("which-key").register({
-	-- 	tt = { "<cmd>Twilight<cr>", "Twilight" },
-	-- }, { prefix = "<leader>" }),
 }

@@ -75,28 +75,52 @@ return {
 
 		-- Key mappings with which-key
 		local wk = require("which-key")
-		wk.register({
-			f = {
-				name = "Telescope",
-				l = {
-					"<cmd>Telescope current_buffer_fuzzy_find<cr>",
-					"Find in current buffer",
-				},
-				f = { "<cmd>Telescope find_files<cr>", "Find files" },
-				r = { "<cmd>Telescope oldfiles<cr>", "Find recent files" },
-				s = { "<cmd>Telescope live_grep<cr>", "Search in workspace" },
-				c = { "<cmd>Telescope grep_string<cr>", "Search under cursor" },
-				t = { "<cmd>TodoTelescope<cr>", "Find todos" },
-				g = { "<cmd>Telescope spell_suggest<cr>", "Find files" },
-				["."] = {
-					"<cmd>Telescope lsp_document_symbols<cr>",
-					"Find files",
-				},
-				e = {
-					"<cmd>Telescope frecency<cr>",
-					"Find frequently used files",
-				},
+		wk.add({
+			{
+				"<leader>f",
+				group = "Telescope",
 			},
-		}, { prefix = "<leader>" })
+			{
+				"<leader>fl",
+				"<cmd>Telescope current_buffer_fuzzy_find<cr>",
+				desc = "Find in current buffer",
+			},
+			{
+				"<leader>ff",
+				"<cmd>Telescope find_files<cr>",
+				desc = "Find files",
+			},
+			{
+				"<leader>fr",
+				"<cmd>Telescope oldfiles<cr>",
+				desc = "Find recent files",
+			},
+			{
+				"<leader>fs",
+				"<cmd>Telescope live_grep<cr>",
+				desc = "Search in workspace",
+			},
+			{
+				"<leader>fc",
+				"<cmd>Telescope grep_string<cr>",
+				desc = "Search under cursor",
+			},
+			{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find todos" },
+			{
+				"<leader>fg",
+				"<cmd>Telescope spell_suggest<cr>",
+				desc = "Find files",
+			},
+			{
+				"<leader>f.",
+				"<cmd>Telescope lsp_document_symbols<cr>",
+				desc = "Find files",
+			},
+			{
+				"<leader>fe",
+				"<cmd>Telescope frecency<cr>",
+				desc = "Find frequently used files",
+			},
+		})
 	end,
 }

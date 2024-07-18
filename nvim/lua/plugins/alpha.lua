@@ -20,12 +20,32 @@ return {
 
 		-- Set menu
 		dashboard.section.buttons.val = {
-			dashboard.button("r", "  > Recently used files", ":Telescope oldfiles <CR>"),
+			dashboard.button(
+				"r",
+				"  > Recently used files",
+				":Telescope oldfiles <CR>"
+			),
 			dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
-			dashboard.button("f", "  > Find File", ":Telescope find_files <CR>"),
-			dashboard.button("p", "  > Projects", ":Telescope projects <CR>"),
-			dashboard.button("i", "  > Settings", ":e ~/.config/nvim/lua/settings.lua <CR>"),
-			dashboard.button("m", "  > Keymaps", ":e ~/.config/nvim/lua/keymaps.lua <CR>"),
+			dashboard.button(
+				"f",
+				"  > Find File",
+				":Telescope find_files <CR>"
+			),
+			dashboard.button(
+				"p",
+				"  > Projects",
+				":Telescope projects <CR>"
+			),
+			dashboard.button(
+				"i",
+				"  > Settings",
+				":e ~/.config/nvim/lua/settings.lua <CR>"
+			),
+			dashboard.button(
+				"m",
+				"  > Keymaps",
+				":e ~/.config/nvim/lua/keymaps.lua <CR>"
+			),
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
 		}
 
@@ -36,8 +56,8 @@ return {
 		vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
 
 		-- Register which-key mapping for Alpha
-		require("which-key").register({
-			a = { "<cmd>Alpha<cr>", "Alpha" },
+		require("which-key").add({
+			{ "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha" },
 		}, { prefix = "<leader>" })
 	end,
 }

@@ -64,101 +64,117 @@ return {
 			end
 
 			-- Register DAP keybindings with which-key
-			require("which-key").register({
-				d = {
-					name = "Debug",
-					b = {
-						function()
-							dap.toggle_breakpoint()
-						end,
-						"DAP: toggle breakpoint",
-					},
-					["-"] = {
-						function()
-							dap.clear_breakpoints()
-						end,
-						"DAP: toggle breakpoint",
-					},
-					c = {
-						function()
-							dap.continue()
-						end,
-						"DAP: continue",
-					},
-					u = {
-						function()
-							ui.toggle()
-						end,
-						"DAP: toggle ui",
-					},
-					o = {
-						function()
-							dap.step_over()
-						end,
-						"DAP: step over",
-					},
-					O = {
-						function()
-							dap.step_out()
-						end,
-						"DAP: step out",
-					},
-					n = {
-						function()
-							dap.step_into()
-						end,
-						"DAP: step into",
-					},
-					N = {
-						function()
-							dap.step_back()
-						end,
-						"DAP: step back",
-					},
-					r = {
-						function()
-							dap.repl.toggle()
-						end,
-						"DAP: toggle repl",
-					},
-					["."] = {
-						function()
-							dap.goto_()
-						end,
-						"DAP: go to",
-					},
-					h = {
-						function()
-							dap.run_to_cursor()
-						end,
-						"DAP: run to cursor",
-					},
-					x = {
-						function()
-							dap.set_exception_breakpoints()
-						end,
-						"DAP: set exception breakpoints",
-					},
-					R = {
-						function()
-							dap.restart()
-						end,
-						"DAP: restart",
-					},
-					q = {
-						function()
-							dap.disconnect({ terminateDebuggee = true })
-						end,
-						"DAP: quit",
-					},
-					e = {
-						function()
-							require("dapui").eval(nil, { enter = true })
-						end,
-						"DAP: eval under cursor",
-					},
+			require("which-key").add({
+				{
+					"<leader>d",
+					group = "Debug",
 				},
-			}, { prefix = "<leader>" })
+				{
+					"<leader>db",
+					function()
+						dap.toggle_breakpoint()
+					end,
+					desc = "DAP: toggle breakpoint",
+				},
+				{
+					"<leader>d-",
+					function()
+						dap.clear_breakpoints()
+					end,
+					desc = "DAP: toggle breakpoint",
+				},
+				{
+					"<leader>dc",
+					function()
+						dap.continue()
+					end,
+					desc = "DAP: continue",
+				},
+				{
+					"<leader>du",
+					function()
+						ui.toggle()
+					end,
+					desc = "DAP: toggle ui",
+				},
+				{
+					"<leader>do",
+					function()
+						dap.step_over()
+					end,
+					desc = "DAP: step over",
+				},
+				{
+					"<leader>dO",
+					function()
+						dap.step_out()
+					end,
+					desc = "DAP: step out",
+				},
+				{
+					"<leader>dn",
+					function()
+						dap.step_into()
+					end,
+					desc = "DAP: step into",
+				},
+				{
+					"<leader>dN",
+					function()
+						dap.step_back()
+					end,
+					desc = "DAP: step back",
+				},
+				{
+					"<leader>dr",
+					function()
+						dap.repl.toggle()
+					end,
+					desc = "DAP: toggle repl",
+				},
+				{
+					"<leader>d.",
+					function()
+						dap.goto_()
+					end,
+					desc = "DAP: go to",
+				},
+				{
+					"<leader>dh",
+					function()
+						dap.run_to_cursor()
+					end,
+					desc = "DAP: run to cursor",
+				},
+				{
+					"<leader>dx",
+					function()
+						dap.set_exception_breakpoints()
+					end,
+					desc = "DAP: set exception breakpoints",
+				},
+				{
+					"<leader>dR",
+					function()
+						dap.restart()
+					end,
+					desc = "DAP: restart",
+				},
+				{
+					"<leader>dq",
+					function()
+						dap.disconnect({ terminateDebuggee = true })
+					end,
+					desc = "DAP: quit",
+				},
+				{
+					"<leader>de",
+					function()
+						require("dapui").eval(nil, { enter = true })
+					end,
+					desc = "DAP: eval under cursor",
+				},
+			})
 
 			-- Define DAP signs for breakpoints and debug points
 			fn.sign_define("DapBreakpoint", {

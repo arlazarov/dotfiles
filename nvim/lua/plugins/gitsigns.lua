@@ -7,51 +7,54 @@ return {
 		on_attach = function(bufnr)
 			local gs = package.loaded.gitsigns
 			local wk = require("which-key")
-			wk.register({
-				g = {
-					name = "Git",
-					["]"] = { gs.next_hunk, "Git: next hunk" },
-					["["] = { gs.prev_hunk, "Git: prev hunk" },
-					s = { gs.stage_hunk, "Git: stage hunk" },
-					r = { gs.prev_hunk, "Git: prev hunk" },
-					S = { gs.stage_buffer, "Git: stage buffer" },
-					R = { gs.reset_buffer, "Git: reset buffer" },
-					u = { gs.undo_stage_hunk, "Git: undo stage hunk" },
-					p = { gs.preview_hunk, "Git: preview hunk" },
-					B = {
-						gs.toggle_current_line_blame,
-						"Git: Toggle line blame",
-					},
-					d = { gs.diffthis, "Git: diff this" },
-					b = {
-						function()
-							gs.blame_line({ full = true })
-						end,
-						"Git: blame line",
-					},
-					D = {
-						function()
-							gs.diffthis("~")
-						end,
-						"Git diff this ~",
-					},
+			wk.add({
+				{ "<leader>g", group = "Git" },
+				{ "<leader>g]", gs.next_hunk, desc = "Git: next hunk" },
+				{ "<leader>g[", gs.prev_hunk, desc = "Git: prev hunk" },
+				{ "<leader>gs", gs.stage_hunk, desc = "Git: stage hunk" },
+				{ "<leader>gr", gs.prev_hunk, desc = "Git: prev hunk" },
+				{ "<leader>gS", gs.stage_buffer, desc = "Git: stage buffer" },
+				{ "<leader>gR", gs.reset_buffer, desc = "Git: reset buffer" },
+				{
+					"<leader>gu",
+					gs.undo_stage_hunk,
+					desc = "Git: undo stage hunk",
 				},
-			}, { prefix = "<leader>", mode = "n" })
-			wk.register({
-				h = {
-					s = {
+				{ "<leader>gp", gs.preview_hunk, desc = "Git: preview hunk" },
+				{
+					"<leader>gB",
+					gs.toggle_current_line_blame,
+					desc = "Git: Toggle line blame",
+				},
+				{ "<leader>gd", gs.diffthis, desc = "Git: diff this" },
+				{
+					"<leader>gb",
+					function()
+						gs.blame_line({ full = true })
+					end,
+					desc = "Git: blame line",
+				},
+				{
+					"<leader>gD",
+					function()
+						gs.diffthis("~")
+					end,
+					desc = "Git diff this ~",
+				},
+				{
+					mode = "v",
+					{
+						"<leader>hs",
 						gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }),
-						"Git: stage hunk",
+						desc = "Git: stage hunk",
 					},
-					r = {
+					{
+						"<leader>hr",
 						gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }),
-						"Git: reset hunk",
+						desc = "Git: reset hunk",
 					},
 				},
-			}, { prefix = "<leader>", mode = "v" })
-
-			-- Text object
-			-- map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
+			})
 		end,
 	},
 }

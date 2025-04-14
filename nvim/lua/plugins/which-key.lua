@@ -1,5 +1,6 @@
 return {
 	"folke/which-key.nvim",
+	priority = 1000,
 	dependencies = {
 		"echasnovski/mini.icons", -- Добавление mini.icons как зависимость
 	},

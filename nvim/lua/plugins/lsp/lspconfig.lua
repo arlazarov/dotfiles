@@ -9,40 +9,39 @@ return {
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	opts = {
-		inlay_hints = { enabled = true }, -- Enable inlay hints
+		inlay_hints = { enabled = true },
 	},
 	config = function()
-		require("plugins.lsp.config.handlers").setup() -- Set up LSP handlers
 		local lspconfig = require("lspconfig")
+		local handlers = require("plugins.lsp.config.handlers")
+
 		local servers = {
+			"cssls",
 			"lua_ls",
 			"jsonls",
-			"cssls",
-			"tailwindcss",
-			"tsserver",
+			"ts_ls",
 			"bashls",
 			"emmet_language_server",
 			"eslint",
 			"omnisharp",
 		}
 
-		-- Ensure the servers are installed via mason-lspconfig
-		require("mason-lspconfig").setup({ ensure_installed = servers })
+		require("mason-lspconfig").setup({
+			ensure_installed = servers,
+		})
 
-		for _, server in pairs(servers) do
+		for _, server in ipairs(servers) do
 			local opts = {
-				on_attach = require("plugins.lsp.config.handlers").on_attach,
-				capabilities = require("plugins.lsp.config.handlers").capabilities,
+				on_attach = handlers.on_attach,
+				capabilities = handlers.capabilities,
 			}
 
-			-- Check for custom options for the server
-			local has_custom_opts, server_custom_opts =
+			local ok, custom_opts =
 				pcall(require, "plugins.lsp.languages." .. server)
-			if has_custom_opts then
-				opts = vim.tbl_deep_extend("force", opts, server_custom_opts)
+			if ok then
+				opts = vim.tbl_deep_extend("force", opts, custom_opts)
 			end
 
-			-- Set up the server with the options
 			lspconfig[server].setup(opts)
 		end
 	end,

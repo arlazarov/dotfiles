@@ -1,0 +1,94 @@
+return {
+	-- "seblj/roslyn.nvim",
+	-- ft = { "cs", "vb" },
+	-- opts = {
+	-- 	args = {
+	-- 		"--logLevel=Information",
+	-- 		"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+	-- 		"--razorSourceGenerator=" .. vim.fs.joinpath(
+	-- 			vim.fn.stdpath("data"),
+	-- 			"mason",
+	-- 			"packages",
+	-- 			"roslyn",
+	-- 			"libexec",
+	-- 			"Microsoft.CodeAnalysis.Razor.Compiler.dll"
+	-- 		),
+	-- 		"--razorDesignTimePath=" .. vim.fs.joinpath(
+	-- 			vim.fn.stdpath("data"),
+	-- 			"mason",
+	-- 			"packages",
+	-- 			"rzls",
+	-- 			"libexec",
+	-- 			"Targets",
+	-- 			"Microsoft.NET.Sdk.Razor.DesignTime.targets"
+	-- 		),
+	-- 	},
+	-- 	config = { on_attach = function(client, bufnr) require("which-key").add({
+	-- 				mode = { "n", "x" },
+	-- 				{ "<leader>l",   group = "LSP" },
+	-- 				{ "<leader>ld",  vim.lsp.buf.hover,                           desc = "Show documentation" },
+	-- 				{ "<leader>la",  vim.lsp.buf.code_action,                     desc = "Code action" },
+	-- 				{ "<leader>lr",  vim.lsp.buf.rename,                          desc = "Rename" },
+	-- 				{ "<leader>lg",  group = "Go to" },
+	-- 				{ "<leader>lgd", vim.lsp.buf.definition,                      desc = "Go to definition" },
+	-- 				{ "<leader>lgr", vim.lsp.buf.references,                      desc = "Go to references" },
+	-- 				{ "<leader>lgt", vim.lsp.buf.type_definition,                 desc = "Go to type definition" },
+	-- 				{ "<leader>lgi", vim.lsp.buf.implementation,                  desc = "Go to implementation" },
+	-- 				{ "<leader>lgD", vim.lsp.buf.declaration,                     desc = "Go to declaration" },
+	-- 				{ "<leader>lq",  vim.diagnostic.setloclist,                   desc = "Quickfix diagnostics" },
+	-- 				{ "<leader>ln",  vim.diagnostic.goto_next,                    desc = "Next diagnostic" },
+	-- 				{ "<leader>lp",  vim.diagnostic.goto_prev,                    desc = "Previous diagnostic" },
+	-- 				{ "<leader>lh",  function() vim.lsp.inlay_hint(0, true) end,  desc = "Enable inlay hints" },
+	-- 				{ "<leader>lH",  function() vim.lsp.inlay_hint(0, false) end, desc = "Disable inlay hints" },
+	-- 				{ "<leader>lR",  "<cmd>LspRestart<cr>",                       desc = "Restart LSP server" },
+	-- 			}, { prefix = "<leader>" })
+	-- 		end,
+	-- 		capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	-- 		-- handlers = require("rzls.roslyn_handlers"),
+	-- 	},
+	-- },
+	-- config = function(_, opts)
+	-- 	require("roslyn").setup(opts)
+	-- end,
+}
+	-- "seblj/roslyn.nvim",
+	-- ft = { "cs", "vb" },
+	-- opts = {
+	-- 	config = {
+	-- 		on_attach = function(client, bufnr)
+	-- 			require("which-key").add({
+	-- 				mode = { "n", "x" },
+	-- 				{ "<leader>l",   group = "LSP" },
+	-- 				{ "<leader>ld",  vim.lsp.buf.hover,                           desc = "Show documentation" },
+	-- 				{ "<leader>la",  vim.lsp.buf.code_action,                     desc = "Code action" },
+	-- 				{ "<leader>lr",  vim.lsp.buf.rename,                          desc = "Rename" },
+	-- 				{ "<leader>lg",  group = "Go to" },
+	-- 				{ "<leader>lgd", vim.lsp.buf.definition,                      desc = "Go to definition" },
+	-- 				{ "<leader>lgr", vim.lsp.buf.references,                      desc = "Go to references" },
+	-- 				{ "<leader>lgt", vim.lsp.buf.type_definition,                 desc = "Go to type definition" },
+	-- 				{ "<leader>lgi", vim.lsp.buf.implementation,                  desc = "Go to implementation" },
+	-- 				{ "<leader>lgD", vim.lsp.buf.declaration,                     desc = "Go to declaration" },
+	-- 				{ "<leader>lq",  vim.diagnostic.setloclist,                   desc = "Quickfix diagnostics" },
+	-- 				{ "<leader>ln",  vim.diagnostic.goto_next,                    desc = "Next diagnostic" },
+	-- 				{ "<leader>lp",  vim.diagnostic.goto_prev,                    desc = "Previous diagnostic" },
+	-- 				{ "<leader>lh",  function() vim.lsp.inlay_hint(0, true) end,  desc = "Enable inlay hints" },
+	-- 				{ "<leader>lH",  function() vim.lsp.inlay_hint(0, false) end, desc = "Disable inlay hints" },
+	-- 				{ "<leader>lR",  "<cmd>LspRestart<cr>",                       desc = "Restart LSP server" },
+	-- 			}, { prefix = "<leader>" })
+	--
+	-- 			-- Автокоманды для восстановления диагностики
+	-- 			vim.api.nvim_create_autocmd({ "InsertLeave", "CursorMoved", "BufLeave", "BufEnter" }, {
+	-- 				callback = function()
+	-- 					vim.defer_fn(function()
+	-- 						vim.diagnostic.enable(bufnr)
+	-- 					end, 100)
+	-- 				end,
+	-- 				desc = "Enable diagnostics after any menu is closed or file is changed",
+	-- 			})
+	-- 		end,
+	-- 		capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+	-- 	},
+	-- },
+	-- config = function(_, opts)
+	-- 	require("roslyn").setup(opts)
+	-- end,

@@ -22,16 +22,28 @@ set.wildmenu = true
 set.spell = false
 set.background = "dark"
 
+vim.opt.foldmethod = "indent"
+vim.opt.foldenable = false
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldcolumn = "0"
+vim.opt.foldtext = ""
+vim.opt.foldlevel = 1
+-- vim.opt.foldlevelstart = 1
+vim.opt.foldnestmax = 2
+vim.opt.conceallevel = 1
+-- vim.g.markdown_folding = 1
+
 -- Indentation
-set.tabstop = 2
 set.ts = 2
 set.sw = 2
 set.sts = 2
-set.expandtab = true
-set.smarttab = true
-set.autoindent = true
-set.smartindent = true
-set.cindent = true
+set.expandtab = false
+set.textwidth = 80
+-- set.expandtab = true
+-- set.smarttab = true
+-- set.autoindent = true
+-- set.smartindent = true
+-- set.cindent = true
 
 -- Search
 set.incsearch = true

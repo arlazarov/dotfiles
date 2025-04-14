@@ -6,6 +6,8 @@
 !yabai/*
 !skhd/
 !skhd/*
+!emacs/
+!emacs/*
 !nvim/
 !nvim/lua/
 !nvim/lua/**

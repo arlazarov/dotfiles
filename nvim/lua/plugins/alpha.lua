@@ -46,6 +46,7 @@ return {
 				"  > Keymaps",
 				":e ~/.config/nvim/lua/keymaps.lua <CR>"
 			),
+			dashboard.button("m", "  > Mail", "<cmd>Himalaya<CR>"),
 			dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
 		}
 

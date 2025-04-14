@@ -19,10 +19,8 @@ return {
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 
-		-- Lazy load VSCode-style snippets
 		require("luasnip.loaders.from_vscode").lazy_load()
 
-		-- Custom border style for completion and documentation windows
 		local borderstyle = {
 			winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
 			border = "rounded",
@@ -32,9 +30,11 @@ return {
 			min_height = 3,
 		}
 
-		-- Setup nvim-cmp
 		cmp.setup({
 			completion = {
+				autocomplete = {
+					require("cmp.types").cmp.TriggerEvent.TextChanged,
+				},
 				completeopt = "menu,menuone,noinsert",
 			},
 			snippet = {
@@ -80,19 +80,19 @@ return {
 						fallback()
 					end
 				end, { "i", "s" }),
+
 				["<C-k>"] = cmp.mapping.select_prev_item(),
 				["<C-j>"] = cmp.mapping.select_next_item(),
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-space>"] = cmp.mapping.complete({ select = true }),
 				["<C-e>"] = cmp.mapping.abort(),
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
 			}),
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp", priority = 50 },
 				{ name = "cmp_tabnine", priority = 90 },
-				{ name = "luasnip", priority = 100 },
 				{ name = "path", priority = 99 },
+				{ name = "orgmode", priority = 30 },
 				{
 					name = "buffer",
 					priority = 50,
@@ -162,21 +162,17 @@ return {
 						Note = " ",
 					}
 
-					-- Load lspkind icons
 					vim_item.kind = lspkind_icons[vim_item.kind]
 
-					-- Custom icon for Tabnine with color setting
 					if entry.source.name == "cmp_tabnine" then
-						vim_item.kind = "⚡" -- Set Tabnine icon to lightning bolt
+						vim_item.kind = "⚡"
 						vim_item.kind_hl_group = "CmpItemKindTabnine"
 					end
 
-					-- Custom icon for 'look'
 					if entry.source.name == "look" then
 						vim_item.kind = lspkind_icons["Note"]
 					end
 
-					-- Menu label for each source
 					vim_item.menu = ({
 						buffer = "[Buffer]",
 						nvim_lsp = "[LSP]",
@@ -193,15 +189,12 @@ return {
 			},
 		})
 
-		-- Set color for Tabnine icon
 		vim.cmd([[highlight! CmpItemKindTabnine guifg=#FF5733 guibg=NONE]])
 
-		-- Disable cmp for TelescopePrompt
 		cmp.setup.filetype({ "TelescopePrompt" }, {
 			sources = {},
 		})
 
-		-- Custom source for specific filetypes
 		cmp.setup.filetype({ "vim", "markdown" }, {
 			sources = {
 				{

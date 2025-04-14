@@ -9,8 +9,11 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
 
-		-- Mason setup with UI customization
 		mason.setup({
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:crashdummyy/mason-registry",
+			},
 			ui = {
 				border = "rounded",
 				icons = {
@@ -21,12 +24,11 @@ return {
 			},
 		})
 
-		-- Mason LSP configuration setup
 		mason_lspconfig.setup({
 			ensure_installed = {
 				"tsserver",
 				"html",
-				"cssls",
+				"css-lsp",
 				"tailwindcss",
 				"lua_ls",
 				"emmet_ls",
@@ -36,7 +38,6 @@ return {
 			},
 		})
 
-		-- Mason tool installer setup
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier",
@@ -44,6 +45,7 @@ return {
 				"pylint",
 				"eslint",
 				"emmet-language-server",
+				"omnisharp",
 			},
 		})
 	end,

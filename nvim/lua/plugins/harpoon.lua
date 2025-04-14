@@ -22,13 +22,13 @@ return {
 
 		-- Setup which-key bindings
 		require("which-key").add({
-			{
-				"<cr>",
-				function()
-					require("harpoon.ui").nav_next()
-				end,
-				desc = "Harpoon: Next File",
-			},
+			-- {
+			-- 	"<cr>",
+			-- 	function()
+			-- 		require("harpoon.ui").nav_next()
+			-- 	end,
+			-- 	desc = "Harpoon: Next File",
+			-- },
 			{ "<leader>h", group = "Harpoon" },
 			{
 				"<leader>ha",

@@ -1,0 +1,99 @@
+return {
+	-- "nvim-neo-tree/neo-tree.nvim",
+	-- branch = "v3.x",
+	-- dependencies = {
+	-- 	"nvim-lua/plenary.nvim",
+	-- 	"nvim-tree/nvim-web-devicons",
+	-- 	"MunifTanjim/nui.nvim",
+	-- 	"folke/which-key.nvim",
+	-- },
+	-- config = function()
+	-- 	vim.keymap.set("n", "<Tab>", function()
+	-- 		local neotree_win = nil
+	-- 		for _, win in ipairs(vim.api.nvim_list_wins()) do
+	-- 			local buf = vim.api.nvim_win_get_buf(win)
+	-- 			local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+	-- 			if ft == "neo-tree" then
+	-- 				neotree_win = win
+	-- 				break
+	-- 			end
+	-- 		end
+	-- 		if neotree_win then
+	-- 			vim.api.nvim_win_close(neotree_win, true)
+	-- 		else
+	-- 			require("neo-tree.command").execute({
+	-- 				toggle = true,
+	-- 				reveal = true,
+	-- 			})
+	-- 		end
+	-- 	end, { desc = "Toggle NeoTree", noremap = true, silent = true })
+	--
+	-- 	vim.keymap.set("n", "<leader>e", function()
+	-- 		local path = vim.fn.expand("%:p:h")
+	-- 		vim.cmd("silent! lcd " .. path)
+	-- 		require("neo-tree.command").execute({
+	-- 			toggle = true,
+	-- 			dir = path,
+	-- 			reveal = true,
+	-- 		})
+	-- 	end, { desc = "NeoTree: Open at current file" })
+	--
+	-- 	require("neo-tree").setup({
+	-- 		sources = {
+	-- 			"filesystem",
+	-- 			"buffers",
+	-- 			"git_status",
+	-- 		},
+	-- 		default_source = "filesystem",
+	-- 		close_if_last_window = true,
+	-- 		popup_border_style = "rounded",
+	-- 		enable_git_status = true,
+	-- 		enable_diagnostics = true,
+	--
+	-- 		filesystem = {
+	-- 			filtered_items = {
+	-- 				visible = false,
+	-- 				hide_dotfiles = true,
+	-- 				hide_gitignored = true,
+	-- 			},
+	-- 			follow_current_file = {
+	-- 				enabled = true,
+	-- 			},
+	-- 			group_empty_dirs = true,
+	-- 			use_libuv_file_watcher = true,
+	-- 		},
+	--
+	-- 		window = {
+	-- 			position = "left",
+	-- 			width = 30,
+	-- 			mappings = {
+	-- 				["<CR>"] = function(state)
+	-- 					local node = state.tree:get_node()
+	-- 					if node.type == "directory" then
+	-- 						state.commands["toggle_node"](state)
+	-- 					else
+	-- 						state.commands["open"](state)
+	-- 					end
+	-- 				end,
+	-- 				["s"] = "open_split",
+	-- 				["v"] = "open_vsplit",
+	-- 				["zh"] = "toggle_hidden",
+	-- 				["c"] = "close_all_nodes",
+	-- 				["p"] = "navigate_up",
+	-- 				["C"] = "set_root",
+	-- 				["q"] = "close_window",
+	-- 			},
+	-- 		},
+	--
+	-- 		event_handlers = {
+	-- 			{
+	-- 				event = "file_opened",
+	-- 				handler = function(file_path)
+	-- 					local path = vim.fn.fnamemodify(file_path, ":h")
+	-- 					vim.cmd("silent! lcd " .. path)
+	-- 				end,
+	-- 			},
+	-- 		},
+	-- 	})
+	-- end,
+}

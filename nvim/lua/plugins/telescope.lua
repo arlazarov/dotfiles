@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
+	-- branch = "0.1.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -9,6 +9,9 @@ return {
 		"folke/noice.nvim",
 		"folke/trouble.nvim",
 		"folke/which-key.nvim",
+		"nvim-telescope/telescope-media-files.nvim",
+		"nvim-lua/popup.nvim",
+		-- "ElPiloto/telescope-vimwiki.nvim",
 		{
 			"benfowler/telescope-luasnip.nvim",
 			module = "telescope._extensions.luasnip",
@@ -65,6 +68,15 @@ return {
 					},
 				},
 			},
+			extensions = {
+				media_files = {
+					-- filetypes whitelist
+					-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+					filetypes = { "png", "webp", "jpg", "jpeg", "pdf" },
+					-- find command (defaults to `fd`)
+					find_cmd = "rg",
+				},
+			},
 		})
 
 		-- Load extensions
@@ -72,6 +84,7 @@ return {
 		telescope.load_extension("noice")
 		telescope.load_extension("luasnip")
 		telescope.load_extension("frecency")
+		telescope.load_extension("media_files")
 
 		-- Key mappings with which-key
 		local wk = require("which-key")
@@ -121,6 +134,25 @@ return {
 				"<cmd>Telescope frecency<cr>",
 				desc = "Find frequently used files",
 			},
+			-- {
+			-- 	"<leader>wf",
+			-- 	group = "Wiki Find",
+			-- },
+			-- {
+			-- 	"<leader>wff",
+			-- 	"<cmd>Telescope vimwiki<cr>",
+			-- 	desc = "Find file",
+			-- },
+			-- {
+			-- 	"<leader>wfl",
+			-- 	"<cmd>:Telescope vw live_grep i=1<cr>",
+			-- 	desc = "Find line",
+			-- },
+			-- {
+			-- 	"<leader>wl",
+			-- 	"<cmd>Telescope vw link<cr>",
+			-- 	desc = "Insert link",
+			-- },
 		})
 	end,
 }

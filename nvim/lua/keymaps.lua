@@ -21,6 +21,44 @@ map({ "n", "x" }, "Q", "<nop>", opts) -- Unbind Q
 map("n", "k", 'v:count == 0 ? "gk" : "k"', { expr = true, noremap = true })
 map("n", "j", 'v:count == 0 ? "gj" : "j"', { expr = true, noremap = true })
 
+-- Move line
+vim.api.nvim_set_keymap(
+	"n",
+	"<A-j>",
+	":m .+1<CR>==",
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"<A-k>",
+	":m .-2<CR>==",
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"i",
+	"<A-j>",
+	"<Esc>:m .+1<CR>==gi",
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"i",
+	"<A-k>",
+	"<Esc>:m .-2<CR>==gi",
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"v",
+	"<A-j>",
+	":m '>+1<CR>gv=gv",
+	{ noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap(
+	"v",
+	"<A-k>",
+	":m '<-2<CR>gv=gv",
+	{ noremap = true, silent = true }
+)
+
 -- Setup which-key for additional mappings
 require("which-key").add({
 	-- Normal and Visual modes
@@ -56,5 +94,8 @@ require("which-key").add({
 	{ "<leader>bk", "<cmd>%bd|e#<cr>", desc = "Buffer: close all" },
 	{ "<leader>bn", "<cmd>bnext<cr>", desc = "Buffer: next" },
 	{ "<leader>bp", "<cmd>bprevious<cr>", desc = "Buffer: previous" },
-	{ "<leader>H", "<cmd>nohl<cr>", desc = "No highlight" },
+	-- Set
+	{ "<leader>s", group = "Set" },
+	{ "<leader>ss", "<cmd>set spell!<cr>", desc = "Set: spell toggle" },
+	{ "<leader>sh", "<cmd>nohl<cr>", desc = "No highlight" },
 })

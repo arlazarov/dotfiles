@@ -24,10 +24,13 @@ return {
 			"emmet_language_server",
 			"eslint",
 			"omnisharp",
+			"stylelint_lsp",
 		}
 
 		require("mason-lspconfig").setup({
 			ensure_installed = servers,
+			automatic_installation = true,
+			automatic_enable = true,
 		})
 
 		for _, server in ipairs(servers) do
@@ -42,7 +45,14 @@ return {
 				opts = vim.tbl_deep_extend("force", opts, custom_opts)
 			end
 
-			lspconfig[server].setup(opts)
+			if not lspconfig[server] then
+				vim.notify(
+					"LSP server not found: " .. server,
+					vim.log.levels.ERROR
+				)
+			else
+				lspconfig[server].setup(opts)
+			end
 		end
 	end,
 }

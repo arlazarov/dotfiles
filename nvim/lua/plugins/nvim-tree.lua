@@ -1,5 +1,7 @@
 return {
 	"nvim-tree/nvim-tree.lua",
+	commit = "HEAD",
+
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		"ryanoasis/vim-devicons",
@@ -43,6 +45,19 @@ return {
 			end
 
 			api.config.mappings.default_on_attach(bufnr)
+
+			vim.keymap.set("n", "<C-o>", function()
+				local node =
+					require("nvim-tree.api").tree.get_node_under_cursor()
+				if not node or not node.absolute_path then
+					vim.notify("No file under cursor", vim.log.levels.WARN)
+					return
+				end
+				vim.fn.jobstart(
+					{ "open", "-R", node.absolute_path },
+					{ detach = true }
+				)
+			end, opts("Reveal in Finder"))
 
 			vim.keymap.set("n", "<Tab>", api.tree.toggle, opts("Toggle"))
 			vim.keymap.set(

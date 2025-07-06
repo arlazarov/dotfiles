@@ -30,28 +30,31 @@ return {
 			},
 		})
 		-- Register key mappings
-		require("which-key").add({
-			{ "<leader>x", group = "Trouble" },
-			{
-				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle<CR>",
-				desc = "Trouble: toggle",
-			},
-			{
-				"<leader>xq",
-				"<cmd>Trouble qflist toggle<CR>",
-				desc = "Trouble: quickfix list",
-			},
-			{
-				"<leader>xl",
-				"<cmd>Trouble loclist toggle<CR>",
-				desc = "Trouble: location list",
-			},
-			{
-				"gR",
-				"<cmd>Trouble lsp_references<CR>",
-				desc = "LSP References (Trouble)",
-			},
-		})
+		vim.keymap.set("n", "<leader>x", "<nop>", { desc = "Trouble" })
+
+		vim.keymap.set(
+			"n",
+			"<leader>xx",
+			"<cmd>Trouble diagnostics toggle<CR>",
+			{ desc = "Trouble: toggle" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>xq",
+			"<cmd>Trouble qflist toggle<CR>",
+			{ desc = "Trouble: quickfix list" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>xl",
+			"<cmd>Trouble loclist toggle<CR>",
+			{ desc = "Trouble: location list" }
+		)
+		vim.keymap.set(
+			"n",
+			"gR",
+			"<cmd>Trouble lsp_references<CR>",
+			{ desc = "LSP References (Trouble)" }
+		)
 	end,
 }

@@ -57,8 +57,6 @@ return {
 		vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
 
 		-- Register which-key mapping for Alpha
-		require("which-key").add({
-			{ "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha" },
-		}, { prefix = "<leader>" })
+		vim.keymap.set("n", "<leader>a", "<cmd>Alpha<cr>", { desc = "Alpha" })
 	end,
 }

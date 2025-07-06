@@ -40,13 +40,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Check for file update
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained" }, {
 	callback = function()
 		vim.api.nvim_command("checktime")
 	end,
 })
--- Disable diagnostics in insert mode
 vim.api.nvim_create_autocmd("ModeChanged", {
 	pattern = { "n:i", "v:s" },
 	desc = "Disable diagnostics in insert and select mode",
@@ -62,7 +60,6 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 	end,
 })
 
--- Disable line numbers for Markdown files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = { "*.md" },
 	callback = function()
@@ -74,5 +71,34 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "calendar",
 	callback = function()
 		vim.wo.number = false
+	end,
+})
+
+local function open_with_system_app(path)
+	local open_cmd
+	if vim.fn.has("mac") == 1 then
+		open_cmd = "open"
+	elseif vim.fn.has("unix") == 1 then
+		open_cmd = "xdg-open"
+	elseif vim.fn.has("win32") == 1 then
+		open_cmd = "start"
+	else
+		vim.notify("Unsupported OS", vim.log.levels.ERROR)
+		return
+	end
+	vim.fn.jobstart({ open_cmd, path }, { detach = true })
+end
+
+vim.api.nvim_create_autocmd("BufReadCmd", {
+	pattern = { "*.pdf", "*.png", "*.jpg", "*.jpeg", "*.webp", "*.gif" },
+	callback = function(args)
+		open_with_system_app(args.file)
+
+		-- вместо bd!
+		vim.bo.bufhidden = "wipe"
+		vim.bo.buftype = "nofile"
+		vim.bo.buflisted = false
+		vim.bo.swapfile = false
+		vim.api.nvim_buf_set_lines(0, 0, -1, false, {})
 	end,
 })

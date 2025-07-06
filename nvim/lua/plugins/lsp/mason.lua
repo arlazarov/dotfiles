@@ -26,15 +26,13 @@ return {
 
 		mason_lspconfig.setup({
 			ensure_installed = {
-				"tsserver",
+				"ts_ls",
+				"cssls",
 				"html",
-				"css-lsp",
 				"tailwindcss",
 				"lua_ls",
 				"emmet_ls",
 				"pyright",
-				"node2",
-				"omnisharp",
 			},
 		})
 
@@ -45,7 +43,6 @@ return {
 				"pylint",
 				"eslint",
 				"emmet-language-server",
-				"omnisharp",
 			},
 		})
 	end,

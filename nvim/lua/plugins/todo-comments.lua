@@ -65,6 +65,10 @@ return {
 				color = "wolf",
 				icon = " ",
 			},
+			done = {
+				color = "wolf",
+				icon = " ",
+			},
 		},
 		gui_style = {
 			fg = "NONE", -- The gui style to use for the fg highlight group.

@@ -9,7 +9,7 @@ return {
 				ext = ".md",
 			},
 			{
-				path = "~/fleet@ggfreightservices.com - Google Drive/My Drive/",
+				path = "~/GG Freight Services/",
 				syntax = "markdown",
 				ext = ".md",
 			},
@@ -57,33 +57,13 @@ return {
 			tabs = 0,
 		}
 
-		require("which-key").add({
-			{ "<leader>w", group = "VimWiki" },
-			-- {
-			-- 	"<leader>wc",
-			-- 	"<cmd>Calendar<cr>",
-			-- 	desc = "Calendar",
-			-- },
-			-- {
-			-- 	"<leader>wm",
-			-- 	"<cmd>MarkdownPreview<cr>",
-			-- 	desc = "Markdown Preview",
-			-- },
-			-- {
-			-- 	"tt",
-			-- 	"<cmd>VimwikiToggleListItem<cr>",
-			-- 	desc = "Task toggle",
-			-- },
-			{
-				hidden = true,
-				{
-					"<leader>tt",
-					":VimwikiToggleListItem<CR>",
-				},
-				-- {
-				-- 	"<leader>wh",
-				-- },
-			},
-		})
+		vim.keymap.set("n", "<leader>w", "", { desc = "VimWiki" })
+
+		vim.keymap.set(
+			"n",
+			"<leader>tt",
+			":VimwikiToggleListItem<CR>",
+			{ desc = "Task toggle" }
+		)
 	end,
 }

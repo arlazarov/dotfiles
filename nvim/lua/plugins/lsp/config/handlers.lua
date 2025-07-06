@@ -43,33 +43,6 @@ vim.lsp.handlers["textDocument/hover"] = function(_, result, _, config)
 	vim.lsp.util.open_floating_preview(lines, "markdown", config)
 end
 
-vim.lsp.handlers["textDocument/signatureHelp"] = function(
-	_,
-	result,
-	ctx,
-	config
-)
-	if
-		not result
-		or not result.signatures
-		or vim.tbl_isempty(result.signatures)
-	then
-		return
-	end
-	local active = result.activeSignature or 0
-	local sig = result.signatures[active + 1] or result.signatures[1]
-	if not sig or type(sig.label) ~= "string" or sig.label == "" then
-		return
-	end
-	config = vim.tbl_extend("force", config or {}, {
-		border = "rounded",
-		max_width = 80,
-		focusable = false,
-		focus_id = "signature_help",
-	})
-	vim.lsp.util.open_floating_preview({ sig.label }, "plaintext", config)
-end
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function(
 	_,
 	result,
@@ -111,7 +84,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = function(
 			})
 		end
 	end
-
 	vim.diagnostic.set(namespace, bufnr, diagnostics, config or {})
 end
 
@@ -122,24 +94,56 @@ vim.lsp.handlers["textDocument/rename"] = function(err, result, _, _)
 	vim.lsp.util.apply_workspace_edit(result, "utf-8")
 end
 
+local function normalize_location(loc)
+	if loc.uri and loc.range then
+		return {
+			location = loc,
+			focus = true,
+		}
+	elseif loc.targetUri and loc.targetRange then
+		return {
+			location = {
+				uri = loc.targetUri,
+				range = loc.targetSelectionRange or loc.targetRange,
+			},
+			focus = true,
+		}
+	else
+		return nil
+	end
+end
+
 vim.lsp.handlers["textDocument/definition"] = function(_, result)
 	if not result then
 		return
 	end
+
 	local function jump(loc)
-		local ok, err = pcall(function()
-			return vim.lsp.util.show_document(loc, { focus = true })
+		local args = normalize_location(loc)
+		if not args then
+			vim.notify(
+				"Invalid location object:\n" .. vim.inspect(loc),
+				vim.log.levels.ERROR
+			)
+			return
+		end
+
+		local ok = pcall(function()
+			vim.lsp.util.show_document(args)
 		end)
+
 		if not ok then
-			vim.lsp.util.jump_to_location(loc, "utf-8")
+			vim.notify("Failed to jump to location", vim.log.levels.ERROR)
 		end
 	end
+
 	if vim.islist(result) and #result > 1 then
 		jump(result[1])
 		vim.fn.setqflist(vim.lsp.util.locations_to_items(result, "utf-8"))
 		vim.cmd("copen")
 	else
-		jump(result)
+		local loc = vim.islist(result) and result[1] or result
+		jump(loc)
 	end
 end
 
@@ -189,20 +193,33 @@ end
 
 M.on_attach = function(client, bufnr)
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
 	if client.server_capabilities.inlayHintProvider then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
+
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
+
 	local ok, km = pcall(require, "plugins.lsp.config.keymaps")
 	if ok then
 		km.map(bufnr)
 	end
-	if client.name == "omnisharp" then
-		client.server_capabilities.signatureHelpProvider = nil
-	end
+
 	setup_document_highlight(client, bufnr)
+
+	if pcall(require, "lsp_signature") then
+		require("lsp_signature").on_attach({
+			bind = true,
+			hint_enable = true,
+			floating_window = false,
+			handler_opts = {
+				border = "rounded",
+			},
+			silent = true,
+		}, bufnr)
+	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

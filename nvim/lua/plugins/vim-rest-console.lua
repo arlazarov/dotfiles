@@ -17,13 +17,11 @@ return {
 			["-k"] = "",
 		}
 
-		require("which-key").add({
-			{ "<leader>c", group = "Code" },
-			{
-				"<leader>cr",
-				"<cmd>call VrcQuery()<cr>",
-				desc = "Code: rest-console",
-			},
-		})
+		vim.keymap.set(
+			"n",
+			"<leader>cr",
+			"<cmd>call VrcQuery()<cr>",
+			{ desc = "Code: rest-console" }
+		)
 	end,
 }

@@ -3,11 +3,126 @@ return {
 	version = "*",
 	lazy = false,
 	ft = "markdown",
+
+	-- Key mappings
+	init = function()
+		vim.keymap.set("n", "<leader>o", "<nop>", { desc = "Obsidian" })
+		vim.keymap.set("n", "<leader>on", "<nop>", { desc = "Notes" })
+		vim.keymap.set(
+			"n",
+			"<leader>onn",
+			"<cmd>ObsidianNew<cr>",
+			{ desc = "[N]ote" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ont",
+			"<cmd>ObsidianNewFromTemplate<cr>",
+			{ desc = "[T]emplate" }
+		)
+		vim.keymap.set(
+			"v",
+			"<leader>ol",
+			"<cmd>ObsidianLinkNew<cr>",
+			{ desc = "[L]ink" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ob",
+			"<cmd>ObsidianBacklinks<cr>",
+			{ desc = "[B]acklinks" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>of",
+			"<cmd>ObsidianSearch<cr>",
+			{ desc = "[F]ind" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ot",
+			"<cmd>ObsidianTags<cr>",
+			{ desc = "[T]ags" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>oq",
+			"<cmd>ObsidianQuickSwitch<cr>",
+			{ desc = "[Q]uick switch" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ow",
+			"<cmd>ObsidianWorkspace<cr>",
+			{ desc = "[W]orkspace" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>or",
+			"<cmd>ObsidianRename<cr>",
+			{ desc = "[R]ename" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>o<leader>",
+			"<nop>",
+			{ desc = "Daily/Find" }
+		)
+
+		vim.keymap.set(
+			"n",
+			"<leader>o<leader>f",
+			"<cmd>ObsidianDailies<cr>",
+			{ desc = "[F]ind" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>o<leader>o",
+			"<cmd>ObsidianToday<cr>",
+			{ desc = "T[O]day" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>o<leader>y",
+			"<cmd>ObsidianToday - 1<cr>",
+			{ desc = "[Y]esterday" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>o<leader>t",
+			"<cmd>ObsidianToday + 1<cr>",
+			{ desc = "[T]omorrow" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>oe",
+			"<cmd>ObsidianExtractNote<cr>",
+			{ desc = "[E]xtract" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>om",
+			"<cmd>MarkdownPreviewToggle<cr>",
+			{ desc = "[M]arkdown Toggle" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>od",
+			"<cmd>ObsidianDailies<cr>",
+			{ desc = "[D]aily Notes" }
+		)
+		vim.keymap.set("n", "<leader>oo", function()
+			vim.cmd("edit ~/GG Freight Services/Notes/Quick notes.md")
+		end, { desc = "Quick N[O]tes" })
+		vim.keymap.set("n", "<leader>o<leader>q", function()
+			vim.cmd("edit ~/GG Freight Services//Notes/Tasks.md")
+		end, { desc = "[Quick] Tasks" })
+	end,
 	opts = {
 		workspaces = {
 			{
 				name = "work",
-				path = "~/Fleet/Fleet Vault/",
+				path = "~/GG Freight Services/",
 			},
 		},
 		preferred_link_style = "markdown",
@@ -43,7 +158,7 @@ return {
 		daily_notes = {
 			folder = "Daily Notes",
 			date_format = "%Y/%B/%d-%m-%Y",
-			alias_format = "%B %-d, %Y",
+			alias_format = "%B %d, %Y",
 			default_tags = { "daily-notes" },
 			template = "daily_notes_template.md",
 		},
@@ -80,90 +195,5 @@ return {
 		markdown_link_func = function(opts)
 			return require("obsidian.util").markdown_link(opts)
 		end,
-
-		-- Key mappings
-		require("which-key").add({
-			{ "<leader>o", group = "Obsidian" },
-			{ "<leader>on", group = "[N]ew" },
-			{ "<leader>onn", "<cmd>ObsidianNew<cr>", desc = "[N]ote" },
-			{
-				"<leader>ont",
-				"<cmd>ObsidianNewFromTemplate<cr>",
-				desc = "[T]emplate",
-			},
-			{
-				mode = "v",
-				{ "<leader>o", group = "Obsidian" },
-				{ "<leader>ol", "<cmd>ObsidianLinkNew<cr>", desc = "[L]ink" },
-			},
-			{
-				"<leader>ob",
-				"<cmd>ObsidianBacklinks<cr>",
-				desc = "[B]acklinks",
-			},
-			{ "<leader>of", "<cmd>ObsidianSearch<cr>", desc = "[F]ind" },
-			{ "<leader>ot", "<cmd>ObsidianTags<cr>", desc = "[T]ags" },
-			{
-				"<leader>oq",
-				"<cmd>ObsidianQuickSwitch<cr>",
-				desc = "[Q]uick switch",
-			},
-			{
-				"<leader>ow",
-				"<cmd>ObsidianWorkspace<cr>",
-				desc = "[W]orkspace",
-			},
-			{ "<leader>or", "<cmd>ObsidianRename<cr>", desc = "[R]ename" },
-			{ "<leader>o<leader>", group = "Daily notes" },
-			{
-				"<leader>o<leader>f",
-				"<cmd>ObsidianDailies<cr>",
-				desc = "[F]ind",
-			},
-			{
-				"<leader>o<leader>o",
-				"<cmd>ObsidianToday<cr>",
-				desc = "T[O]day",
-			},
-			{
-				"<leader>o<leader>y",
-				"<cmd>ObsidianToday - 1<cr>",
-				desc = "[Y]esterday",
-			},
-			{
-				"<leader>o<leader>t",
-				"<cmd>ObsidianToday + 1<cr>",
-				desc = "[T]omorrow",
-			},
-			{
-				"<leader>oe",
-				"<cmd>ObsidianExtractNote<cr>",
-				desc = "[E]xtract",
-			},
-			{
-				"<leader>om",
-				"<cmd>MarkdownPreviewToggle<cr>",
-				desc = "[M]arkdown Toggle",
-			},
-			{
-				"<leader>od",
-				"<cmd>ObsidianDailies<cr>",
-				desc = "[D/aily Notes",
-			},
-			{
-				"<leader>oo",
-				function()
-					vim.cmd("edit ~/Fleet/Fleet Vault/Notes/Quick notes.md")
-				end,
-				desc = "Quick N[O]tes",
-			},
-			{
-				"<leader>o<Leader>q",
-				function()
-					vim.cmd("edit ~/Fleet/Fleet Vault/Notes/Tasks.md")
-				end,
-				desc = "[Quick] Tasks",
-			},
-		}),
 	},
 }

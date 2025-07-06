@@ -14,16 +14,16 @@ return {
 	},
 	config = function()
 		require("telescope").load_extension("lazygit")
-		require("which-key").add({
-			{ "<leader>g", group = "LazyGit" },
-			{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit: open" },
-			{
-				"<leader>gf",
-				function()
-					require("telescope").extensions.lazygit.lazygit()
-				end,
-				desc = "LazyGit: find",
-			},
-		})
+
+		vim.keymap.set("n", "<leader>g", "<nop>", { desc = "LazyGit" })
+		vim.keymap.set(
+			"n",
+			"<leader>gg",
+			"<cmd>LazyGit<cr>",
+			{ desc = "LazyGit: open" }
+		)
+		vim.keymap.set("n", "<leader>gf", function()
+			require("telescope").extensions.lazygit.lazygit()
+		end, { desc = "LazyGit: find" })
 	end,
 }

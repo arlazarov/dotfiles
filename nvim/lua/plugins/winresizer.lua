@@ -6,9 +6,6 @@ return {
 		vim.g.winresizer_start_key = ""
 	end,
 	config = function()
-		require("which-key").add({
-			"<C-w>r",
-			"<cmd>WinResizerStartResize<cr>",
-		})
+		vim.keymap.set("n", "<C-w>r", "<cmd>WinResizerStartResize<cr>")
 	end,
 }

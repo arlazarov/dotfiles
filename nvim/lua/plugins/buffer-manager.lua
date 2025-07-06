@@ -28,14 +28,10 @@ return {
 		})
 
 		local buffer = require("buffer_manager.ui")
-		require("which-key").add({
-			{
-				"<leader>bo",
-				function()
-					buffer.toggle_quick_menu()
-				end,
-				desc = "Buffer: toggle",
-			},
-		})
+		vim.keymap.set("n", "<leader>b", "<nop>", { desc = "Buffer Manager" })
+
+		vim.keymap.set("n", "<leader>bo", function()
+			buffer.toggle_quick_menu()
+		end, { desc = "Buffer: toggle" })
 	end,
 }

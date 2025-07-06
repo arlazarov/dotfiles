@@ -20,107 +20,61 @@ return {
 		vim.cmd("highlight! HarpoonNumberInactive guibg=#112638 guifg=#c3ccdc")
 		vim.cmd("highlight! TabLineFill guibg=#112638 guifg=white")
 
-		-- Setup which-key bindings
-		require("which-key").add({
-			-- {
-			-- 	"<cr>",
-			-- 	function()
-			-- 		require("harpoon.ui").nav_next()
-			-- 	end,
-			-- 	desc = "Harpoon: Next File",
-			-- },
-			{ "<leader>h", group = "Harpoon" },
-			{
-				"<leader>ha",
-				function()
-					require("harpoon.mark").add_file()
-					vim.cmd("e")
-				end,
-				desc = "Harpoon: Add File",
-			},
-			{
-				"<leader>ho",
-				function()
-					require("harpoon.ui").toggle_quick_menu()
-				end,
-				desc = "Harpoon: Toggle Menu",
-			},
-			{
-				"<leader>h1",
-				function()
-					require("harpoon.ui").nav_file(1)
-				end,
-				desc = "Harpoon: Navigate to 1",
-			},
-			{
-				"<leader>h2",
-				function()
-					require("harpoon.ui").nav_file(2)
-				end,
-				desc = "Harpoon: Navigate to 2",
-			},
-			{
-				"<leader>h3",
-				function()
-					require("harpoon.ui").nav_file(3)
-				end,
-				desc = "Harpoon: Navigate to 3",
-			},
-			{
-				"<leader>h4",
-				function()
-					require("harpoon.ui").nav_file(4)
-				end,
-				desc = "Harpoon: Navigate to 4",
-			},
-			{
-				"<leader>hn",
-				function()
-					require("harpoon.ui").nav_next()
-				end,
-				desc = "Harpoon: Next File",
-			},
-			{
-				"<leader>hp",
-				function()
-					require("harpoon.ui").nav_prev()
-				end,
-				desc = "Harpoon: Previous File",
-			},
-			{
-				"<leader>hd",
-				function()
-					require("harpoon.mark").rm_file()
-					vim.cmd("e")
-				end,
-				desc = "Harpoon: Remove File",
-			},
-			{
-				"<leader>hc",
-				function()
-					require("harpoon.mark").clear_all()
-					vim.cmd("e")
-				end,
-				desc = "Harpoon: Clear All Files",
-			},
-			{
-				"<leader><cr>",
-				function()
-					require("harpoon.ui").nav_next()
-				end,
-			},
-			{
-				"<M-C-l>",
-				function()
-					require("harpoon.ui").nav_next()
-				end,
-			},
-			{
-				"<M-C-h>",
-				function()
-					require("harpoon.ui").nav_prev()
-				end,
-			},
-		})
+		local harpoon_mark = require("harpoon.mark")
+		local harpoon_ui = require("harpoon.ui")
+
+		vim.keymap.set("n", "<leader>h", "<nop>", { desc = "Harpoon" })
+
+		vim.keymap.set("n", "<leader>ha", function()
+			harpoon_mark.add_file()
+			vim.cmd("e")
+		end, { desc = "Harpoon: Add File" })
+
+		vim.keymap.set(
+			"n",
+			"<leader>ho",
+			harpoon_ui.toggle_quick_menu,
+			{ desc = "Harpoon: Toggle Menu" }
+		)
+
+		vim.keymap.set("n", "<leader>h1", function()
+			harpoon_ui.nav_file(1)
+		end, { desc = "Harpoon: Navigate to 1" })
+		vim.keymap.set("n", "<leader>h2", function()
+			harpoon_ui.nav_file(2)
+		end, { desc = "Harpoon: Navigate to 2" })
+		vim.keymap.set("n", "<leader>h3", function()
+			harpoon_ui.nav_file(3)
+		end, { desc = "Harpoon: Navigate to 3" })
+		vim.keymap.set("n", "<leader>h4", function()
+			harpoon_ui.nav_file(4)
+		end, { desc = "Harpoon: Navigate to 4" })
+
+		vim.keymap.set(
+			"n",
+			"<leader>hn",
+			harpoon_ui.nav_next,
+			{ desc = "Harpoon: Next File" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>hp",
+			harpoon_ui.nav_prev,
+			{ desc = "Harpoon: Previous File" }
+		)
+
+		vim.keymap.set("n", "<leader>hd", function()
+			harpoon_mark.rm_file()
+			vim.cmd("e")
+		end, { desc = "Harpoon: Remove File" })
+
+		vim.keymap.set("n", "<leader>hc", function()
+			harpoon_mark.clear_all()
+			vim.cmd("e")
+		end, { desc = "Harpoon: Clear All Files" })
+
+		vim.keymap.set("n", "<leader><CR>", harpoon_ui.nav_next)
+		vim.keymap.set("n", "<M-C-l>", harpoon_ui.nav_next)
+		vim.keymap.set("n", "<M-C-h>", harpoon_ui.nav_prev)
 	end,
 }

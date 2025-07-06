@@ -18,7 +18,10 @@ return {
 			kitty = { enabled = false, font = "+5" },
 		},
 	},
-	require("which-key").add({
-		{ "<leader>z", "<cmd>ZenMode<cr>", desc = "ZenMode: toggle" },
-	}),
+	vim.keymap.set(
+		"n",
+		"<leader>z",
+		"<cmd>ZenMode<cr>",
+		{ desc = "ZenMode: toggle" }
+	),
 }

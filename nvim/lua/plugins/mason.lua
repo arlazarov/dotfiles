@@ -15,18 +15,19 @@ return {
 			},
 		})
 
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"lua_ls",
-				"ts_ls",
-				"html",
-				"cssls",
-				"marksman",
-				"jsonls",
-				"emmet_ls",
-				"omnisharp",
-			},
-			automatic_installation = true,
-		})
+		-- require("mason-lspconfig").setup({
+		-- 	ensure_installed = {
+		-- 		"lua_ls",
+		-- 		"ts_ls",
+		-- 		"html",
+		-- 		"cssls",
+		-- 		"marksman",
+		-- 		"jsonls",
+		-- 		"emmet_ls",
+		-- 	},
+		-- 	automatic_installation = {
+		-- 		exclude = { "omnisharp" },
+		-- 	},
+		-- })
 	end,
 }

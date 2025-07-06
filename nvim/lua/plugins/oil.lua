@@ -45,14 +45,14 @@ return {
 			function()
 				require("oil").open()
 			end,
-			desc = "Oil: Открыть текущую директорию",
+			desc = "Oil: open directory",
 		},
 		{
 			"<leader>e",
 			function()
 				require("oil").open(vim.fn.expand("%:p:h"))
 			end,
-			desc = "Oil: Открыть директорию файла",
+			desc = "Oil: open file",
 		},
 	},
 }
